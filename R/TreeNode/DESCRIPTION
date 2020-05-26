@@ -1,0 +1,18 @@
+Package: TreeNode
+Type: Package
+Title: Read and Write Trees in Binary and NWKA Formats
+Version: 1.0.0
+Author: Giorgio Bianchini
+Maintainer: Giorgio Bianchini <giorgio.bianchini@bristol.ac.uk>
+Description: The TreeNode package provides functions to read and write files containing phylogenetic trees in Binary Tree format and in Newick-with-Attributes (NWKA) format.
+	TreeNode produces and consumes trees stored in the same phylo or multiPhylo objects used by the package ape.
+	More information on TreeNode can be found at https://github.com/arklumpus/TreeNode .
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 1.0.4.6)
+LinkingTo: Rcpp
+SystemRequirements: C++17
+RoxygenNote: 7.1.0
+Suggests:
+    ape

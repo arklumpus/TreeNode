@@ -1,0 +1,5 @@
+<map id="PhyloTree.TreeCollection" name="PhyloTree.TreeCollection">
+<area shape="rect" id="node1" title="Represents a collection of TreeNode objects. If the full representations of the TreeNode objects resi..." alt="" coords="50,80,217,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,131,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="155,5,245,32"/>
+</map>

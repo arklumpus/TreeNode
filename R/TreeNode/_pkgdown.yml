@@ -1,0 +1,33 @@
+destination: ../../docs/R/
+
+template:
+  params:
+    bootswatch: cerulean
+
+home:
+  links:
+  - text: Report a bug or ask a question about TreeNode
+    href: https://github.com/arklumpus/TreeNode/issues
+
+  - text: Browse source code
+    href: https://github.com/arklumpus/TreeNode
+
+reference:
+- title: Binary format
+  desc:  Functions to read and write trees in binary format
+- contents:
+  - read_binary_trees
+  - read_one_binary_tree
+  - read_binary_tree_metadata
+  - write_binary_trees
+  - begin_writing_binary_trees
+  - keep_writing_binary_trees
+  - finish_writing_binary_trees
+
+- title: Newick-with-Attributes
+  desc:  Functions to read and write trees in NWKA format
+- contents:
+  - read_nwka_tree
+  - read_nwka_nexus
+  - write_nwka_tree
+  - write_nwka_nexus
