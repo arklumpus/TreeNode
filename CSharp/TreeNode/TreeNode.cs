@@ -1082,7 +1082,7 @@ namespace PhyloTree
             {
                 TreeNode seed = this.GetNodeFromName(monophyleticConstraint.ElementAt(0));
 
-                while (seed != null && !seed.GetLeafNames().ContainsAll(monophyleticConstraint))
+                while (seed != null && !seed.GetNodeNames().ContainsAll(monophyleticConstraint))
                 {
                     seed = seed.Parent;
                 }
