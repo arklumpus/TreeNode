@@ -382,6 +382,11 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
           name = name.substr(1);
         }
 
+        if (name.rfind("!", 0) == 0)
+        {
+          name = name.substr(1);
+        }
+
         if (equalCI(name, NAMEATTRIBUTE))
         {
           std::string value = attributeValue.str();

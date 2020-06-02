@@ -447,6 +447,11 @@ namespace PhyloTree.Formats
                             name = name.Substring(1);
                         }
 
+                        if (name.StartsWith("!", StringComparison.OrdinalIgnoreCase))
+                        {
+                            name = name.Substring(1);
+                        }
+
                         if (name.Equals("Name", StringComparison.OrdinalIgnoreCase))
                         {
                             string value = attributeValue.ToString();

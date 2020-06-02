@@ -70,7 +70,7 @@ The following conventions apply when describing a `Node`:
 	- Otherwise, the meaning of the attribute is undefined; however, this should not cause a compliant parser to fail.
 
 - Some or all of the attributes can be enclosed within square brackets (`[]`). In this case, in addition to colon (`:`) and forward slash (`/`), a comma (`,`) is also a valid attribute separator.
-- An ampersand (`&`) at the start of an attribute name is ignored.
+- An ampersand (`&`), an exclamation mark (`!`) or an ampersand followed by an exclamation mark (`&!`) at the start of an attribute name are ignored.
 - If no `Support` attribute is specified and a `prob` attribute is specified, the value of the `Support` attribute is taken to be equal to the `prob` attribute (the `prob` attribute is also retained).
 
 The following are all examples of valid `Node`s:
