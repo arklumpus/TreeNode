@@ -278,7 +278,7 @@ static int32_t readShortInt(std::fstream* stream, byte* currByte, int* currIndex
     }
     else// if (twoBits == 0b11)
     {
-      int32_t fourBits = twoBits & ((*currByte & 0b00000011) << 2);
+      int32_t fourBits = twoBits | ((*currByte & 0b00000011) << 2);
       *currIndex = 2;
 
       if (fourBits == 0b0011)

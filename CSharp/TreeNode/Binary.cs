@@ -1013,7 +1013,7 @@ namespace PhyloTree.Formats
                 }
                 else// if (twoBits == 0b11)
                 {
-                    int fourBits = twoBits & ((currByte & 0b00000011) << 2);
+                    int fourBits = twoBits | ((currByte & 0b00000011) << 2);
                     currIndex = 2;
 
                     if (fourBits == 0b0011)
