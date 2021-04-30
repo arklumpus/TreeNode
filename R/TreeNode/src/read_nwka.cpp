@@ -346,7 +346,7 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
 
     if (start)
     {
-      if (c2 == '[')
+      if (c2 == '[' && !escaped && !openQuotes && !openApostrophe)
       {
         expectedClosingBrackets = ']';
         c2 = ',';

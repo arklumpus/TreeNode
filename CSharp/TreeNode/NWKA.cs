@@ -410,7 +410,7 @@ namespace PhyloTree.Formats
 
                 if (start)
                 {
-                    if (c2 == '[')
+                    if (c2 == '[' && !openApostrophe && !openQuotes && !escaped)
                     {
                         expectedClosingBrackets = ']';
                         c2 = ',';
