@@ -28,7 +28,7 @@
   <td id="projectlogo"><img alt="Logo" src="Logo.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">TreeNode
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">A library to manipulate phylogenetic trees</div>
   </td>
@@ -1104,7 +1104,7 @@ $(document).ready(function(){initNavTree('_binary_8cs_source.html',''); initResi
 <div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;                }</div>
 <div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;                <span class="keywordflow">else</span><span class="comment">// if (twoBits == 0b11)</span></div>
 <div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;                {</div>
-<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;                    <span class="keywordtype">int</span> fourBits = twoBits &amp; ((currByte &amp; 0b00000011) &lt;&lt; 2);</div>
+<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;                    <span class="keywordtype">int</span> fourBits = twoBits | ((currByte &amp; 0b00000011) &lt;&lt; 2);</div>
 <div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;                    currIndex = 2;</div>
 <div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160; </div>
 <div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;                    <span class="keywordflow">if</span> (fourBits == 0b0011)</div>

@@ -1,17 +1,17 @@
 var searchData=
 [
-  ['getchildrenrecursive_120',['GetChildrenRecursive',['../class_phylo_tree_1_1_tree_node.html#a10f3cbaa55715ca0c062ad6aee626e0f',1,'PhyloTree::TreeNode']]],
-  ['getchildrenrecursivelazy_121',['GetChildrenRecursiveLazy',['../class_phylo_tree_1_1_tree_node.html#acd4a745d36fedcf6fc283edf113d0408',1,'PhyloTree::TreeNode']]],
-  ['getconsensus_122',['GetConsensus',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#ae3cdb64558caf9eeda518a62a73b955f',1,'PhyloTree::Extensions::TypeExtensions']]],
-  ['getenumerator_123',['GetEnumerator',['../class_phylo_tree_1_1_attribute_dictionary.html#a27c6b041934d4b7c54db82e1b4d9474e',1,'PhyloTree.AttributeDictionary.GetEnumerator()'],['../class_phylo_tree_1_1_tree_collection.html#a3f81f88ec6b9ff23634cd7230bb8ebe4',1,'PhyloTree.TreeCollection.GetEnumerator()']]],
-  ['gethashcode_124',['GetHashCode',['../struct_phylo_tree_1_1_formats_1_1_attribute.html#af3d07de861ddf3a7cfa46a028836dfc6',1,'PhyloTree::Formats::Attribute']]],
-  ['getlastcommonancestor_125',['GetLastCommonAncestor',['../class_phylo_tree_1_1_tree_node.html#aa4a24b971f90ec80dc8dcac2d72756d7',1,'PhyloTree.TreeNode.GetLastCommonAncestor(IEnumerable&lt; TreeNode &gt; monophyleticConstraint)'],['../class_phylo_tree_1_1_tree_node.html#a69affd381d9a2fbac70a0ac12cfbb346',1,'PhyloTree.TreeNode.GetLastCommonAncestor(params string[] monophyleticConstraint)'],['../class_phylo_tree_1_1_tree_node.html#af1ddaf03343bfe932654ac5bf8b40269',1,'PhyloTree.TreeNode.GetLastCommonAncestor(IEnumerable&lt; string &gt; monophyleticConstraint)']]],
-  ['getleafnames_126',['GetLeafNames',['../class_phylo_tree_1_1_tree_node.html#a8106a348a92ec008a280673485461ab1',1,'PhyloTree::TreeNode']]],
-  ['getleaves_127',['GetLeaves',['../class_phylo_tree_1_1_tree_node.html#abd6553ee2108df823c68b7bd066402c1',1,'PhyloTree::TreeNode']]],
-  ['getnodefromid_128',['GetNodeFromId',['../class_phylo_tree_1_1_tree_node.html#a5b10a1f2732bece732618a1ce000b0f1',1,'PhyloTree::TreeNode']]],
-  ['getnodefromname_129',['GetNodeFromName',['../class_phylo_tree_1_1_tree_node.html#af6f61b610664c8de60f2622420318f69',1,'PhyloTree::TreeNode']]],
-  ['getnodenames_130',['GetNodeNames',['../class_phylo_tree_1_1_tree_node.html#a0190778929ce3b54ac2be351dd62bb78',1,'PhyloTree::TreeNode']]],
-  ['getrootedtree_131',['GetRootedTree',['../class_phylo_tree_1_1_tree_node.html#ae6b9afc19b73b1e44638704f02156976',1,'PhyloTree::TreeNode']]],
-  ['getrootnode_132',['GetRootNode',['../class_phylo_tree_1_1_tree_node.html#af08b6ddc4fdf955f91e53a6ca7554538',1,'PhyloTree::TreeNode']]],
-  ['getunrootedtree_133',['GetUnrootedTree',['../class_phylo_tree_1_1_tree_node.html#a17dbe72e48873a91dea484509fd636f6',1,'PhyloTree::TreeNode']]]
+  ['getchildrenrecursive_124',['GetChildrenRecursive',['../class_phylo_tree_1_1_tree_node.html#a10f3cbaa55715ca0c062ad6aee626e0f',1,'PhyloTree::TreeNode']]],
+  ['getchildrenrecursivelazy_125',['GetChildrenRecursiveLazy',['../class_phylo_tree_1_1_tree_node.html#acd4a745d36fedcf6fc283edf113d0408',1,'PhyloTree::TreeNode']]],
+  ['getconsensus_126',['GetConsensus',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#ae3cdb64558caf9eeda518a62a73b955f',1,'PhyloTree::Extensions::TypeExtensions']]],
+  ['getenumerator_127',['GetEnumerator',['../class_phylo_tree_1_1_attribute_dictionary.html#a27c6b041934d4b7c54db82e1b4d9474e',1,'PhyloTree.AttributeDictionary.GetEnumerator()'],['../class_phylo_tree_1_1_tree_collection.html#a3f81f88ec6b9ff23634cd7230bb8ebe4',1,'PhyloTree.TreeCollection.GetEnumerator()']]],
+  ['gethashcode_128',['GetHashCode',['../struct_phylo_tree_1_1_formats_1_1_attribute.html#af3d07de861ddf3a7cfa46a028836dfc6',1,'PhyloTree::Formats::Attribute']]],
+  ['getlastcommonancestor_129',['GetLastCommonAncestor',['../class_phylo_tree_1_1_tree_node.html#aa4a24b971f90ec80dc8dcac2d72756d7',1,'PhyloTree.TreeNode.GetLastCommonAncestor(IEnumerable&lt; TreeNode &gt; monophyleticConstraint)'],['../class_phylo_tree_1_1_tree_node.html#a69affd381d9a2fbac70a0ac12cfbb346',1,'PhyloTree.TreeNode.GetLastCommonAncestor(params string[] monophyleticConstraint)'],['../class_phylo_tree_1_1_tree_node.html#af1ddaf03343bfe932654ac5bf8b40269',1,'PhyloTree.TreeNode.GetLastCommonAncestor(IEnumerable&lt; string &gt; monophyleticConstraint)']]],
+  ['getleafnames_130',['GetLeafNames',['../class_phylo_tree_1_1_tree_node.html#a8106a348a92ec008a280673485461ab1',1,'PhyloTree::TreeNode']]],
+  ['getleaves_131',['GetLeaves',['../class_phylo_tree_1_1_tree_node.html#abd6553ee2108df823c68b7bd066402c1',1,'PhyloTree::TreeNode']]],
+  ['getnodefromid_132',['GetNodeFromId',['../class_phylo_tree_1_1_tree_node.html#a5b10a1f2732bece732618a1ce000b0f1',1,'PhyloTree::TreeNode']]],
+  ['getnodefromname_133',['GetNodeFromName',['../class_phylo_tree_1_1_tree_node.html#af6f61b610664c8de60f2622420318f69',1,'PhyloTree::TreeNode']]],
+  ['getnodenames_134',['GetNodeNames',['../class_phylo_tree_1_1_tree_node.html#a0190778929ce3b54ac2be351dd62bb78',1,'PhyloTree::TreeNode']]],
+  ['getrootedtree_135',['GetRootedTree',['../class_phylo_tree_1_1_tree_node.html#ae6b9afc19b73b1e44638704f02156976',1,'PhyloTree::TreeNode']]],
+  ['getrootnode_136',['GetRootNode',['../class_phylo_tree_1_1_tree_node.html#af08b6ddc4fdf955f91e53a6ca7554538',1,'PhyloTree::TreeNode']]],
+  ['getunrootedtree_137',['GetUnrootedTree',['../class_phylo_tree_1_1_tree_node.html#a17dbe72e48873a91dea484509fd636f6',1,'PhyloTree::TreeNode']]]
 ];

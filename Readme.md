@@ -2,7 +2,7 @@
 
 <img src="Logo.svg" width="256" align="right">
 
-__TreeNode__ is a library for reading, writing and manipulating phylogenetic trees in C# and R. It can open and create files in the most common phylogenetic formats (i.e. Newick/New Hampshire and NEXUS) and adds support for two new formats, the Newick-with-Attributes and Binary format.
+__TreeNode__ is a library for reading, writing and manipulating phylogenetic trees in C# and R. It can open and create files in the most common phylogenetic formats (i.e. Newick/New Hampshire and NEXUS) and adds support for two new formats, the Newick-with-Attributes and Binary format. The C# library also supports the [NCBI ASN.1](https://www.ncbi.nlm.nih.gov/tools/treeviewer/biotreecontainer/) format (text and binary).
 
 The __Newick-with-Attributes (NWKA) format__ is an extension of the Newick format which makes it possible to specify any number of arbitrary attributes to associate to each node in the tree. The NWKA format is backwards compatible with the Newick format (all Newick trees are valid NWKA trees, and NWKA trees produced by TreeNode are valid Newick trees). A full description of this format is available [in this repository](NWKA.md).
 
@@ -68,7 +68,7 @@ The `PhyloTree` namespace contains the `TreeNode` class, which is used to repres
 
 A full list of the information that can be extracted and the manipulations that can be performed on `TreeNode` objects can be obtained by looking at the methods and properties of the [`TreeNode` class in the documentation website](https://arklumpus.github.io/TreeNode/Csharp/class_phylo_tree_1_1_tree_node.html).
 
-In addition to this, the `PhyloTree` namespace contains the `Phylotree.Formats` namespace. The three classes in this namespace (`NWKA`, `NEXUS` and `BinaryTree`) contain methods that can be used to read and write `TreeNode` objects to files in the respective format.
+In addition to this, the `PhyloTree` namespace contains the `Phylotree.Formats` namespace. The classes in this namespace (`NWKA`, `NEXUS`, `BinaryTree`, `NcbiAsnText` and `NcbiAsnBer`) contain methods that can be used to read and write `TreeNode` objects to files in the respective format.
 
 Each of these classes offers (at least) the following methods (with additional optional arguments):
 

@@ -4,7 +4,7 @@
 
 This is the documentation website for the __TreeNode C# library__.
 
-__TreeNode__ is a library for reading, writing and manipulating phylogenetic trees in C# and R. It can open and create files in the most common phylogenetic formats (i.e. Newick/New Hampshire and NEXUS) and adds support for two new formats, the [Newick-with-Attributes](https://github.com/arklumpus/TreeNode/blob/master/NWKA.md) and [Binary format](https://github.com/arklumpus/TreeNode/blob/master/BinaryTree.md).
+__TreeNode__ is a library for reading, writing and manipulating phylogenetic trees in C# and R. It can open and create files in the most common phylogenetic formats (i.e. Newick/New Hampshire and NEXUS) and adds support for two new formats, the [Newick-with-Attributes](https://github.com/arklumpus/TreeNode/blob/master/NWKA.md) and [Binary format](https://github.com/arklumpus/TreeNode/blob/master/BinaryTree.md). The C# library also supports the [NCBI ASN.1](https://www.ncbi.nlm.nih.gov/tools/treeviewer/biotreecontainer/) format (text and binary).
 
 The __TreeNode C# library__, in addition to providing methods to read and write phylogenetic tree files, also includes methods to manipulate the resulting trees (e.g. to reroot the tree, compute a consensus tree, find the last common ancestor of a group, etc.).
 

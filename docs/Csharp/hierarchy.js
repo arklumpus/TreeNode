@@ -14,6 +14,8 @@ var hierarchy =
     [ "IList", null, [
       [ "PhyloTree.TreeCollection", "class_phylo_tree_1_1_tree_collection.html", null ]
     ] ],
+    [ "PhyloTree.Formats.NcbiAsnBer", "class_phylo_tree_1_1_formats_1_1_ncbi_asn_ber.html", null ],
+    [ "PhyloTree.Formats.NcbiAsnText", "class_phylo_tree_1_1_formats_1_1_ncbi_asn_text.html", null ],
     [ "PhyloTree.Formats.NEXUS", "class_phylo_tree_1_1_formats_1_1_n_e_x_u_s.html", null ],
     [ "PhyloTree.Formats.NWKA", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html", null ],
     [ "PhyloTree.TreeNode", "class_phylo_tree_1_1_tree_node.html", null ],
