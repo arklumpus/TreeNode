@@ -1,7 +1,7 @@
 Package: TreeNode
 Type: Package
 Title: Read and Write Trees in Binary and NWKA Formats
-Version: 1.0.3
+Version: 1.0.4
 Author: Giorgio Bianchini
 Maintainer: Giorgio Bianchini <giorgio.bianchini@bristol.ac.uk>
 Description: The TreeNode package provides functions to read and write files containing phylogenetic trees in Binary Tree format and in Newick-with-Attributes (NWKA) format.
