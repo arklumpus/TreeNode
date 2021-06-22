@@ -564,7 +564,7 @@ namespace PhyloTree.Formats
                     treeName = "tree" + (i + 1).ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
 
-                sw.WriteLine("\tTree " + treeName + " = " + NWKA.WriteTree(tree, true, true));
+                sw.WriteLine("\tTree " + treeName + " = " + NWKA.WriteTree(tree, true, true) + ";");
                 progressAction?.Invoke((double)(i + 1) / trees.Count);
             }
 
@@ -631,7 +631,7 @@ namespace PhyloTree.Formats
                     treeName = "tree" + (treeIndex + 1).ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
 
-                sw.WriteLine("\tTree " + treeName + " = " + NWKA.WriteTree(tree, true, true));
+                sw.WriteLine("\tTree " + treeName + " = " + NWKA.WriteTree(tree, true, true) + ";");
 
                 treeIndex++;
                 progressAction?.Invoke(treeIndex);
