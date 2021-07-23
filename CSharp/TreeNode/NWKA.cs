@@ -395,6 +395,9 @@ namespace PhyloTree.Formats
 
             char expectedClosingBrackets = '\0';
 
+            int supportCount = 0;
+            int lengthCount = 0;
+
             while (!eof)
             {
                 char c2;
@@ -465,10 +468,12 @@ namespace PhyloTree.Formats
                         }
                         else if (name.Equals("Support", StringComparison.OrdinalIgnoreCase))
                         {
+                            supportCount = Math.Max(supportCount, 1);
                             node.Support = double.Parse(attributeValue.ToString(), CultureInfo.InvariantCulture);
                         }
                         else if (name.Equals("Length", StringComparison.OrdinalIgnoreCase))
                         {
+                            lengthCount = Math.Max(lengthCount, 1);
                             node.Length = double.Parse(attributeValue.ToString(), CultureInfo.InvariantCulture);
                         }
                         else
@@ -495,7 +500,16 @@ namespace PhyloTree.Formats
                             case ':':
                                 if (double.TryParse(attributeName.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
                                 {
-                                    node.Length = result;
+                                    if (lengthCount == 0)
+                                    {
+                                        node.Length = result;
+                                        lengthCount++;
+                                    }
+                                    else
+                                    {
+                                        lengthCount++;
+                                        node.Attributes["Length" + lengthCount.ToString(System.Globalization.CultureInfo.InvariantCulture)] = result;
+                                    }
                                 }
                                 else
                                 {
@@ -521,7 +535,16 @@ namespace PhyloTree.Formats
                             case '/':
                                 if (double.TryParse(attributeName.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double result2))
                                 {
-                                    node.Support = result2;
+                                    if (supportCount == 0)
+                                    {
+                                        node.Support = result2;
+                                        supportCount++;
+                                    }
+                                    else
+                                    {
+                                        supportCount++;
+                                        node.Attributes["Support" + supportCount.ToString(System.Globalization.CultureInfo.InvariantCulture)] = result2;
+                                    }
                                 }
                                 else
                                 {
@@ -568,7 +591,16 @@ namespace PhyloTree.Formats
                                 {
                                     if (double.IsNaN(node.Support) && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double result3))
                                     {
-                                        node.Support = result3;
+                                        if (supportCount == 0)
+                                        {
+                                            node.Support = result3;
+                                            supportCount++;
+                                        }
+                                        else
+                                        {
+                                            supportCount++;
+                                            node.Attributes["Support" + supportCount.ToString(System.Globalization.CultureInfo.InvariantCulture)] = result3;
+                                        }   
                                     }
                                     else
                                     {

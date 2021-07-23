@@ -1,5 +1,5 @@
 /***********************************************************************
- *  read_nwka.cpp    2020-05-20
+ *  read_nwka.cpp    2021-07-23
  *  by Giorgio Bianchini
  *  This file is part of the R package TreeNode, licensed under GPLv3
  *
@@ -330,6 +330,9 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
   bool withinBrackets = false;
 
   char expectedClosingBrackets = '\0';
+  
+  int supportCount = 0;
+  int lengthCount = 0;
 
   while (!(*eof))
   {
@@ -400,10 +403,12 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
         }
         else if (equalCI(name, SUPPORTATTRIBUTE))
         {
+          supportCount = std::max(supportCount, 1);
           (*attributes)["Support"] = std::stod(attributeValue.str());
         }
         else if (equalCI(name, LENGTHATTRIBUTE))
         {
+          lengthCount = std::max(lengthCount, 1);
           (*attributes)["Length"] = std::stod(attributeValue.str());
         }
         else
@@ -433,7 +438,16 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
         case ':':
           if (tryParse(attributeName.str(), &result))
           {
-            (*attributes)["Length"] = result;
+            if (lengthCount == 0)
+            {
+                (*attributes)["Length"] = result;
+                lengthCount++;
+            }
+            else
+            {
+                lengthCount++;
+                (*attributes)["Length" + std::to_string(lengthCount)] = result;
+            }
           }
           else
           {
@@ -459,7 +473,16 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
         case '/':
           if (tryParse(attributeName.str(), &result))
           {
-            (*attributes)["Support"] = result;
+            if (supportCount == 0)
+            {
+                (*attributes)["Support"] = result;
+                supportCount++;
+            }
+            else
+            {
+                supportCount++;
+				(*attributes)["Support" + std::to_string(supportCount)] = result;
+            }
           }
           else
           {
@@ -506,7 +529,16 @@ static void parseAttributes(std::string* sr, int* srPosition, bool* eof, std::ma
           {
             if ((!containsKey(&((*attributes)), "Support") || std::isnan(std::get<double>((*attributes)["Support"]))) && tryParse(value, &result))
             {
-              (*attributes)["Support"] = result;
+			  if (supportCount == 0)
+              {
+                  (*attributes)["Support"] = result;
+                  supportCount++;
+              }
+              else
+              {
+                  supportCount++;
+				  (*attributes)["Support" + std::to_string(supportCount)] = result;
+              }
             }
             else
             {
