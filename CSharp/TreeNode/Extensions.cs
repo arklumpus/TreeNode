@@ -106,8 +106,9 @@ namespace PhyloTree.Extensions
         /// <param name="clockLike">Whether the trees are to be treated as clock-like trees or not. This has an effect on how the branch lengths of the consensus tree are computed.</param>
         /// <param name="threshold">The (inclusive) threshold for splits to be included in the consensus tree. Use <c>0</c> to get all compatible splits, <c>0.5</c> for a majority-rule consensus or <c>1</c> for a strict consensus.</param>
         /// <param name="useMedian">If this is <c>true</c>, the lengths of the branches in the tree will be computed based on the median length/age of the splits used to build the tree. Otherwise, the mean will be used.</param>
+        /// <param name="progressAction">An <see cref="Action"/> that will be invoked as the trees are processed.</param>
         /// <returns>A rooted consensus tree.</returns>
-        public static TreeNode GetConsensus(this IEnumerable<TreeNode> trees, bool rooted, bool clockLike, double threshold, bool useMedian)
+        public static TreeNode GetConsensus(this IEnumerable<TreeNode> trees, bool rooted, bool clockLike, double threshold, bool useMedian, Action<double> progressAction = null)
         {
             Contract.Requires(trees != null);
 
@@ -116,6 +117,13 @@ namespace PhyloTree.Extensions
             int totalTrees = 0;
 
             Split.LengthTypes lengthType = clockLike ? Split.LengthTypes.Age : Split.LengthTypes.Length;
+
+            int count = -1;
+
+            if (trees is IReadOnlyList<TreeNode> list)
+            {
+                count = list.Count;
+            }
 
             foreach (TreeNode tree in trees)
             {
@@ -134,6 +142,15 @@ namespace PhyloTree.Extensions
                 }
 
                 totalTrees++;
+
+                if (count > 0)
+                {
+                    progressAction?.Invoke((double)totalTrees / count);
+                }
+                else
+                {
+                    progressAction?.Invoke(totalTrees);
+                }
             }
 
             List<Split> orderedSplits = new List<Split>(from el in splits orderby el.Value.Count descending where ((double)el.Value.Count / (double)totalTrees) >= threshold select new Split(el.Key, (useMedian ? el.Value.Median() : el.Value.Average()), lengthType, ((double)el.Value.Count / (double)totalTrees)));
