@@ -1106,6 +1106,8 @@ namespace PhyloTree
 
             List<TreeNode> nodes = this.GetChildrenRecursive();
 
+            double totalTreeLength = this.LongestDownstreamLength();
+
             if (this.Children.Count == 2)
             {
                 for (int i = 0; i < nodes.Count; i++)
@@ -1113,7 +1115,7 @@ namespace PhyloTree
                     List<string> nodeLeaves = nodes[i].GetLeafNames();
                     nodeLeaves.Sort();
 
-                    tbr.Add(new Split(nodeLeaves.Aggregate((a, b) => a + "," + b), lengthType == Split.LengthTypes.Length ? nodes[i].Length : nodes[i].LongestDownstreamLength(), lengthType, 1));
+                    tbr.Add(new Split(nodeLeaves.Aggregate((a, b) => a + "," + b), lengthType == Split.LengthTypes.Length ? nodes[i].Length : (totalTreeLength - nodes[i].UpstreamLength()), lengthType, 1));
                 }
             }
             else
@@ -1134,11 +1136,11 @@ namespace PhyloTree
                         List<string> splitTerminals = new List<string>() { nodeLeaves.Aggregate((a, b) => a + "," + b), diffLeaves.Aggregate((a, b) => a + "," + b) };
                         splitTerminals.Sort();
 
-                        tbr.Add(new Split(splitTerminals.Aggregate((a, b) => a + "|" + b), lengthType == Split.LengthTypes.Length ? nodes[i].Length : (nodes[i].LongestDownstreamLength() + nodes[i].Length), lengthType, 1));
+                        tbr.Add(new Split(splitTerminals.Aggregate((a, b) => a + "|" + b), lengthType == Split.LengthTypes.Length ? nodes[i].Length : ((totalTreeLength - nodes[i].UpstreamLength()) + nodes[i].Length), lengthType, 1));
                     }
                     else
                     {
-                        tbr.Add(new Split(nodeLeaves.Aggregate((a, b) => a + "," + b), lengthType == Split.LengthTypes.Length ? nodes[i].Length : nodes[i].LongestDownstreamLength(), lengthType, 1));
+                        tbr.Add(new Split(nodeLeaves.Aggregate((a, b) => a + "," + b), lengthType == Split.LengthTypes.Length ? nodes[i].Length : (totalTreeLength - nodes[i].UpstreamLength()), lengthType, 1));
                     }
                 }
 
