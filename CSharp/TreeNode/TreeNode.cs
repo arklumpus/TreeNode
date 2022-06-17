@@ -302,7 +302,7 @@ namespace PhyloTree
     /// Represents a node in a tree (or a whole tree).
     /// </summary>
     [Serializable]
-    public class TreeNode
+    public partial class TreeNode
     {
         /// <summary>
         /// The parent node of this node. This will be <c>null</c> for the root node.
