@@ -314,5 +314,67 @@ namespace PhyloTree.Extensions
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Reads the next word, taking into account whitespaces, square brackets, commas and semicolons.
+        /// </summary>
+        /// <param name="reader">The <see cref="TextReader"/> to read from.</param>
+        /// <param name="eof">A <see cref="bool"/> indicating whether we have arrived at the end of the file.</param>
+        /// <param name="headingTrivia">A string containing any whitespace that was discarding before the start of the word.</param>
+        /// <returns>The next word.</returns>
+        public static string NextWord(this TextReader reader, out bool eof, out string headingTrivia)
+        {
+            Contract.Requires(reader != null);
+
+            StringBuilder sb = new StringBuilder();
+
+            StringBuilder headingTriviaBuilder = new StringBuilder();
+            StringBuilder trailingTriviaBuilder = new StringBuilder();
+
+            int c = reader.Read();
+
+            while (c >= 0 && Char.IsWhiteSpace((char)c))
+            {
+                headingTriviaBuilder.Append((char)c);
+                c = reader.Read();
+            }
+
+            headingTrivia = headingTriviaBuilder.ToString();
+
+            if (c >= 0)
+            {
+                sb.Append((char)c);
+            }
+
+            if ((char)c == '[' || (char)c == ']' || (char)c == ',' || (char)c == ';')
+            {
+                eof = false;
+                return sb.ToString();
+            }
+
+            c = reader.Peek();
+
+            while (c >= 0 && !Char.IsWhiteSpace((char)c))
+            {
+                if ((char)c == '[' || (char)c == ']' || (char)c == ',' || (char)c == ';')
+                {
+                    break;
+                }
+                c = reader.Read();
+                sb.Append((char)c);
+                c = reader.Peek();
+            }
+
+            if (c < 0)
+            {
+                eof = true;
+            }
+            else
+            {
+                eof = false;
+            }
+
+            return sb.ToString();
+        }
     }
 }

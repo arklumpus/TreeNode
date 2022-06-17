@@ -221,7 +221,24 @@ namespace PhyloTree.Formats
                         else
                         {
                             string name = word;
+
+                            char initialChar = name[0];
+
+                            while ((initialChar == '\'' || initialChar == '"') && !name.EndsWith(initialChar))
+                            {
+                                word = reader.NextWord(out _, out string headingTrivia);
+                                name += headingTrivia + word;
+                            }
+
                             word = reader.NextWord(out _);
+
+                            initialChar = word[0];
+
+                            while ((initialChar == '\'' || initialChar == '"') && !word.EndsWith(initialChar))
+                            {
+                                string word2 = reader.NextWord(out _, out string headingTrivia);
+                                word += headingTrivia + word2;
+                            }
 
                             if ((name.StartsWith("'", StringComparison.OrdinalIgnoreCase) && name.EndsWith("'", StringComparison.OrdinalIgnoreCase)) || (name.StartsWith("\"", StringComparison.OrdinalIgnoreCase) && name.EndsWith("\"", StringComparison.OrdinalIgnoreCase)))
                             {
