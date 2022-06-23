@@ -1147,5 +1147,68 @@ namespace PhyloTree
             }
             return tbr;
         }
+
+        /// <summary>
+        /// Gets the split corresponding to the branch underlying this node. If this is an internal node, <c>side1</c> will contain all the leaves in the tree except those descending from this node, and <c>side2</c>
+        /// will contain all the leaves descending from this node. If this is the root <c>side1</c> will be empty and <c>side2</c> will contain all the leaves in the tree. If the tree is rooted (the root node has exactly
+        /// 2 children), <c>side1</c> will contain in all cases an additional <see langword="null"/> element.
+        /// </summary>
+        /// <returns>The leaves on the two sides of the split.</returns>
+        public (List<TreeNode> side1, List<TreeNode> side2) GetSplit()
+        {
+            if (this.Parent == null)
+            {
+                if (this.Children.Count == 2)
+                {
+                    return (new List<TreeNode>() { null }, this.GetLeaves());
+                }
+                else
+                {
+                    return (new List<TreeNode>(), this.GetLeaves());
+                }
+            }
+            else
+            {
+                List<TreeNode> side2 = this.GetLeaves();
+
+                TreeNode parent = this.Parent;
+
+                while (parent.Parent != null)
+                {
+                    parent = parent.Parent;
+                }
+
+                List<TreeNode> side1 = parent.GetLeaves();
+                side1.RemoveAll(x => side2.Contains(x));
+
+                if (parent.Children.Count == 2)
+                {
+                    side1.Add(null);
+                }
+
+                return (side1, side2);
+            }
+        }
+
+        /// <summary>
+        /// Gets all the splits in the tree.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> that enumerates all the splits in the tree.</returns>
+        public IEnumerable<(List<TreeNode> side1, List<TreeNode> side2, double branchLength)> GetSplits()
+        {
+            foreach (TreeNode node in this.GetChildrenRecursive())
+            {
+                (List<TreeNode> side1, List<TreeNode> side2) = node.GetSplit();
+
+                if (node.Parent == null)
+                {
+                    yield return (side1, side2, 0);
+                }
+                else
+                {
+                    yield return (side1, side2, node.Length);
+                }
+            }
+        }
     }
 }
