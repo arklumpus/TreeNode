@@ -1210,5 +1210,109 @@ namespace PhyloTree
                 }
             }
         }
+
+
+
+        /// <summary>
+        /// Prunes the current node from the tree.
+        /// </summary>
+        /// <param name="leaveParent">This value determines what happens to the parent node of the current node if it only has two children (i.e., the current node and another node). If this is <see langword="false"/>, the parent node is also pruned; if it is <see langword="true"/>, the parent node is left untouched.</param>
+        /// <remarks>Note that the node is pruned in-place; however, the return value of this method should be used, because pruning the node may have caused the root of the tree to move.</remarks>
+        /// <returns>The <see cref="TreeNode"/> corresponding to the root of the tree after the current node has been pruned.</returns>
+        public TreeNode Prune(bool leaveParent)
+        {
+            if (this.Parent == null)
+            {
+                return new TreeNode(null);
+            }
+
+            this.Parent.Children.Remove(this);
+
+            if (!leaveParent)
+            {
+                if (this.Parent.Children.Count == 1)
+                {
+                    TreeNode parent = this.Parent;
+                    TreeNode otherChild = this.Parent.Children[0];
+                    if (parent.Parent != null)
+                    {
+                        int index = parent.Parent.Children.IndexOf(parent);
+                        parent.Parent.Children[index] = otherChild;
+                        otherChild.Length += parent.Length;
+                        otherChild.Parent = parent.Parent;
+
+                        while (parent.Parent != null)
+                        {
+                            parent = parent.Parent;
+                        }
+
+                        return parent;
+                    }
+                    else
+                    {
+                        if (parent.Length > 0)
+                        {
+                            otherChild.Length += parent.Length;
+                        }
+
+                        otherChild.Parent = null;
+                        return otherChild;
+                    }
+                }
+                else
+                {
+                    TreeNode parent = this.Parent;
+
+                    while (parent.Parent != null)
+                    {
+                        parent = parent.Parent;
+                    }
+
+                    return parent;
+                }
+            }
+            else
+            {
+                TreeNode parent = this.Parent;
+
+                while (parent.Parent != null)
+                {
+                    parent = parent.Parent;
+                }
+
+                return parent;
+            }
+        }
+
+        /// <summary>
+        /// Prunes a node from the tree.
+        /// </summary>
+        /// <param name="nodeToPrune">The node that should be pruned.</param>
+        /// <param name="leaveParent">This value determines what happens to the parent node of the pruned node if it only has two children (i.e., the pruned node and another node). If this is <see langword="false"/>, the parent node is also pruned; if it is <see langword="true"/>, the parent node is left untouched.</param>
+        /// <remarks>Note that the node is pruned in-place; however, the return value of this method should be used, because pruning the node may have caused the root of the tree to move.</remarks>
+        /// <returns>The <see cref="TreeNode"/> corresponding to the root of the tree after the <paramref name="nodeToPrune"/> has been pruned.</returns>
+        public TreeNode Prune(TreeNode nodeToPrune, bool leaveParent)
+        {
+            if (nodeToPrune == null)
+            {
+                if (this.Parent != null)
+                {
+                    TreeNode parent = this.Parent;
+
+                    while (parent.Parent != null)
+                    {
+                        parent = parent.Parent;
+                    }
+
+                    return parent;
+                }
+                else
+                {
+                    return this;
+                }
+            }
+
+            return nodeToPrune.Prune(leaveParent);
+        }
     }
 }
