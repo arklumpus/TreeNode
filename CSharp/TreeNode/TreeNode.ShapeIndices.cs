@@ -136,7 +136,7 @@ namespace PhyloTree
         /// Colless index under the YHK model. This is useful to save time if you need to compute the Colless index of many trees with the same number of leaves. If this is <see cref="double.NaN"/>, the
         /// expected value under the YHK model is computed by this method.</param>
         /// <returns>The Colless index of the tree.</returns>
-        public double CollessIndex(NullHypothesis model, double yhkExpectation = double.NaN)
+        public double CollessIndex(NullHypothesis model = NullHypothesis.None, double yhkExpectation = double.NaN)
         {
             (int score, int leaves) = this.ComputeCollessInner();
 
@@ -164,7 +164,7 @@ namespace PhyloTree
         /// of cherries is normalised with respect to the corresponding null tree model (which makes scores comparable across trees of different sizes).</param>
         /// <returns>The number of cherries in the tree.</returns>
         /// <remarks>Proofs in DOI: 10.1016/S0025-5564(99)00060-7</remarks>
-        public double NumberOfCherries(NullHypothesis model)
+        public double NumberOfCherries(NullHypothesis model = NullHypothesis.None)
         {
             List<TreeNode> leaves = this.GetLeaves();
 
