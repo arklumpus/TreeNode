@@ -406,8 +406,8 @@ namespace PhyloTree
             {
                 //At this point, assume that the root node has 2 children
 
-                //If the second child of the root node is not a leaf node (i.e. it has 2 children), we can take the first child of the root node and graft it onto the second child; the second child will now have 3 children and will be the root node of the unrooted tree
-                if (this.Children[1].Children.Count == 2)
+                //If the second child of the root node is not a leaf node (i.e. it has at least 2 children), we can take the first child of the root node and graft it onto the second child; the second child will now have 3 children and will be the root node of the unrooted tree
+                if (this.Children[1].Children.Count >= 2)
                 {
                     TreeNode child1 = this.Children[1].Clone();
                     TreeNode child0 = this.Children[0].Clone();
