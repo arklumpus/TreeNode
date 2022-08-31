@@ -6,6 +6,7 @@ using PhyloTree.Extensions;
 using PhyloTree.Formats;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
+using System.Threading;
 
 [assembly: SuppressMessage("Globalization", "CA1303")]
 
@@ -214,7 +215,7 @@ namespace PhyloTree
             }
 
             int maxCoalescence = nodes.Count;
-            
+
             for (int i = 2; i <= maxCoalescence; i++)
             {
                 Coalesce(splitChildrenLeft, nodes, allSplits, i);
@@ -1314,5 +1315,282 @@ namespace PhyloTree
 
             return nodeToPrune.Prune(leaveParent);
         }
+
+        /// <summary>
+        /// Creates a lower triangular distance matrix, where each entry is the path length distance between two leaves in the tree. Entries are in the same order as returned by the <see cref="GetLeaves"/> method.
+        /// </summary>
+        /// <param name="maxDegreeOfParallelism">Maximum number of threads to use, or -1 to let the runtime decide. If this argument is set to 0 (the default), the value used is 1 for trees with 1500 or fewer leaves, or -1 for larger trees.</param>
+        /// <param name="progressCallback">A method used to report progress.</param>
+        /// <returns>A <see cref="T:double[][]"/> jagged array containing the distance matrix.</returns>
+        public double[][] CreateDistanceMatrixDouble(int maxDegreeOfParallelism = 0, Action<double> progressCallback = null)
+        {
+            List<TreeNode> leaves = this.GetLeaves();
+            List<TreeNode> nodes = this.GetChildrenRecursive();
+
+            if (maxDegreeOfParallelism == 0)
+            {
+                if (leaves.Count <= 1500)
+                {
+                    maxDegreeOfParallelism = 1;
+                }
+                else
+                {
+                    maxDegreeOfParallelism = -1;
+                }
+            }
+
+            HashSet<int>[] ancestors = new HashSet<int>[nodes.Count];
+            HashSet<int>[] descendants = new HashSet<int>[nodes.Count];
+            int[] leafIndices = new int[leaves.Count];
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (nodes[i].Parent != null)
+                {
+                    int parentIndex = nodes.IndexOf(nodes[i].Parent);
+                    ancestors[i] = new HashSet<int>(ancestors[parentIndex]);
+                    ancestors[i].Add(i);
+                }
+                else
+                {
+                    ancestors[i] = new HashSet<int>() { i };
+                }
+
+                if (nodes[i].Children.Count == 0)
+                {
+                    leafIndices[leaves.IndexOf(nodes[i])] = i;
+                }
+            }
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                descendants[i] = new HashSet<int>();
+            }
+
+            for (int i = 0; i < leaves.Count; i++)
+            {
+                foreach (int j in ancestors[leafIndices[i]])
+                {
+                    descendants[j].Add(i);
+                }
+            }
+
+            double[][] tbr = new double[leaves.Count][];
+
+            for (int i = 0; i < tbr.Length; i++)
+            {
+                tbr[i] = new double[i];
+            }
+
+            if (maxDegreeOfParallelism == 1)
+            {
+                for (int i = 1; i < nodes.Count; i++)
+                {
+                    double length = nodes[i].Length;
+
+                    for (int k = 0; k < leaves.Count; k++)
+                    {
+                        if (!descendants[i].Contains(k))
+                        {
+                            foreach (int j in descendants[i])
+                            {
+                                tbr[Math.Max(j, k)][Math.Min(j, k)] += length;
+                            }
+                        }
+                    }
+
+                    progressCallback?.Invoke((double)i / (nodes.Count - 1));
+                }
+            }
+            else
+            {
+                int progress = 0;
+                object progressLock = new object();
+
+                System.Threading.Tasks.Parallel.For(1, nodes.Count, new System.Threading.Tasks.ParallelOptions() { MaxDegreeOfParallelism = maxDegreeOfParallelism }, i =>
+                {
+                    double length = nodes[i].Length;
+
+                    for (int k = 0; k < leaves.Count; k++)
+                    {
+                        if (!descendants[i].Contains(k))
+                        {
+                            foreach (int j in descendants[i])
+                            {
+                                Add(ref tbr[Math.Max(j, k)][Math.Min(j, k)], length);
+                            }
+                        }
+                    }
+
+                    if (progressCallback != null)
+                    {
+                        lock (progressLock)
+                        {
+                            progress++;
+                            progressCallback.Invoke((double)progress / (nodes.Count - 1));
+                        }
+                    }
+                });
+            }
+
+            return tbr;
+        }
+
+        /// <summary>
+        /// Creates a lower triangular distance matrix, where each entry is the path length distance between two leaves in the tree. Entries are in the same order as returned by the <see cref="GetLeaves"/> method.
+        /// </summary>
+        /// <param name="maxDegreeOfParallelism">Maximum number of threads to use, or -1 to let the runtime decide. If this argument is set to 0 (the default), the value used is 1 for trees with 1500 or fewer leaves, or -1 for larger trees.</param>
+        /// <param name="progressCallback">A method used to report progress.</param>
+        /// <returns>A <see cref="T:float[][]"/> jagged array containing the distance matrix.</returns>
+        public float[][] CreateDistanceMatrixFloat(int maxDegreeOfParallelism = 0, Action<double> progressCallback = null)
+        {
+            List<TreeNode> leaves = this.GetLeaves();
+            List<TreeNode> nodes = this.GetChildrenRecursive();
+
+            if (maxDegreeOfParallelism == 0)
+            {
+                if (leaves.Count <= 1500)
+                {
+                    maxDegreeOfParallelism = 1;
+                }
+                else
+                {
+                    maxDegreeOfParallelism = -1;
+                }
+            }
+
+            HashSet<int>[] ancestors = new HashSet<int>[nodes.Count];
+            HashSet<int>[] descendants = new HashSet<int>[nodes.Count];
+            int[] leafIndices = new int[leaves.Count];
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (nodes[i].Parent != null)
+                {
+                    int parentIndex = nodes.IndexOf(nodes[i].Parent);
+                    ancestors[i] = new HashSet<int>(ancestors[parentIndex]);
+                    ancestors[i].Add(i);
+                }
+                else
+                {
+                    ancestors[i] = new HashSet<int>() { i };
+                }
+
+                if (nodes[i].Children.Count == 0)
+                {
+                    leafIndices[leaves.IndexOf(nodes[i])] = i;
+                }
+            }
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                descendants[i] = new HashSet<int>();
+            }
+
+            for (int i = 0; i < leaves.Count; i++)
+            {
+                foreach (int j in ancestors[leafIndices[i]])
+                {
+                    descendants[j].Add(i);
+                }
+            }
+
+            float[][] tbr = new float[leaves.Count][];
+
+            for (int i = 0; i < tbr.Length; i++)
+            {
+                tbr[i] = new float[i];
+            }
+
+            if (maxDegreeOfParallelism == 1)
+            {
+                for (int i = 1; i < nodes.Count; i++)
+                {
+                    float length = (float)nodes[i].Length;
+
+                    for (int k = 0; k < leaves.Count; k++)
+                    {
+                        if (!descendants[i].Contains(k))
+                        {
+                            foreach (int j in descendants[i])
+                            {
+                                tbr[Math.Max(j, k)][Math.Min(j, k)] += length;
+                            }
+                        }
+                    }
+
+                    progressCallback?.Invoke((double)i / (nodes.Count - 1));
+                }
+            }
+            else
+            {
+                int progress = 0;
+                object progressLock = new object();
+
+                System.Threading.Tasks.Parallel.For(1, nodes.Count, new System.Threading.Tasks.ParallelOptions() { MaxDegreeOfParallelism = maxDegreeOfParallelism }, i =>
+                {
+                    float length = (float)nodes[i].Length;
+
+                    for (int k = 0; k < leaves.Count; k++)
+                    {
+                        if (!descendants[i].Contains(k))
+                        {
+                            foreach (int j in descendants[i])
+                            {
+                                Add(ref tbr[Math.Max(j, k)][Math.Min(j, k)], length);
+                            }
+                        }
+                    }
+
+                    if (progressCallback != null)
+                    {
+                        lock (progressLock)
+                        {
+                            progress++;
+                            progressCallback.Invoke((double)progress / (nodes.Count - 1));
+                        }
+                    }
+                });
+            }
+
+            return tbr;
+        }
+
+        /// <summary>
+        /// Interlocked add for double, from https://stackoverflow.com/a/16893641.
+        /// </summary>
+        private static double Add(ref double location1, double value)
+        {
+            double newCurrentValue = location1; // non-volatile read, so may be stale
+            while (true)
+            {
+                double currentValue = newCurrentValue;
+                double newValue = currentValue + value;
+                newCurrentValue = Interlocked.CompareExchange(ref location1, newValue, currentValue);
+                if (newCurrentValue.Equals(currentValue))
+                {
+                    return newValue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Interlocked add for float, adapted from https://stackoverflow.com/a/16893641.
+        /// </summary>
+        private static float Add(ref float location1, float value)
+        {
+            float newCurrentValue = location1; // non-volatile read, so may be stale
+            while (true)
+            {
+                float currentValue = newCurrentValue;
+                float newValue = currentValue + value;
+                newCurrentValue = Interlocked.CompareExchange(ref location1, newValue, currentValue);
+                if (newCurrentValue.Equals(currentValue))
+                {
+                    return newValue;
+                }
+            }
+        }
+
     }
 }
