@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['name_189',['Name',['../class_phylo_tree_1_1_attribute_dictionary.html#a018e1cb442e42860a608ae4182282146',1,'PhyloTree.AttributeDictionary.Name()'],['../class_phylo_tree_1_1_tree_node.html#a4884c49733bb5cf44f6d3f7fd796250e',1,'PhyloTree.TreeNode.Name()']]],
-  ['names_190',['Names',['../class_phylo_tree_1_1_formats_1_1_binary_tree_metadata.html#ac83eacec423f064c42543e1cb0b65f08',1,'PhyloTree::Formats::BinaryTreeMetadata']]]
+  ['length_0',['Length',['../class_phylo_tree_1_1_attribute_dictionary.html#ac16319eeef4510cf5c8fde78d0f12fcc',1,'PhyloTree.AttributeDictionary.Length()'],['../class_phylo_tree_1_1_tree_node.html#a86b94683f7e5ba653601ad8068945e69',1,'PhyloTree.TreeNode.Length()']]]
 ];

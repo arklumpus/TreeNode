@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['count_171',['Count',['../class_phylo_tree_1_1_attribute_dictionary.html#ac84957f681529d970bf96de49e7c497e',1,'PhyloTree::AttributeDictionary']]]
+  ['side1_0',['side1',['../class_phylo_tree_1_1_tree_node.html#ad529504045ee03018d03346d6c732ce5',1,'PhyloTree::TreeNode']]]
 ];

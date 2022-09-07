@@ -30,7 +30,7 @@ var NAVTREE =
       [ "Usage", "index.html#autotoc_md2", null ]
     ] ],
     [ "Packages", "namespaces.html", [
-      [ "Packages", "namespaces.html", "namespaces_dup" ]
+      [ "Package List", "namespaces.html", "namespaces_dup" ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -52,7 +52,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_attribute_dictionary_8cs_source.html"
+"_attribute_dictionary_8cs_source.html",
+"class_phylo_tree_1_1_tree_collection.html#afcd38efdfb550231e319518d845f006b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

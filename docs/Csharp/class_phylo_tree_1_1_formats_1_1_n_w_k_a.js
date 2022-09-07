@@ -1,12 +1,12 @@
 var class_phylo_tree_1_1_formats_1_1_n_w_k_a =
 [
-    [ "ParseAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a7926ee49e86bd1f100d8b968ac1887a1", null ],
-    [ "ParseAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a88484c75ad839c0ebc1b14d6bd45e448", null ],
-    [ "ParseAllTreesFromSource", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a1056fcd99bcfc4efbcdc371115104512", null ],
+    [ "ParseAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a2985886aa78b3f880b5ef006f157c9d0", null ],
+    [ "ParseAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a8c1573b22e33e855c143fafda0dd798a", null ],
+    [ "ParseAllTreesFromSource", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#aca7e00bef406470df4ae36f71f2530b6", null ],
     [ "ParseTree", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a2f4470b3858bc5d7599a95afa2129b42", null ],
-    [ "ParseTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a45ee97e5a61695d0e2ca64f44a4ec233", null ],
-    [ "ParseTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#ac8229d9c2c5449ac597dc6d741758338", null ],
-    [ "ParseTreesFromSource", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a6f6147b4282bd53c0cc1c2d99622c3a1", null ],
+    [ "ParseTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#ac080868d15b86383a6f3d77dc3b7f0f5", null ],
+    [ "ParseTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a9de156719bae6ef9ae467ef7dfdab34b", null ],
+    [ "ParseTreesFromSource", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a563683b4e0da53593b870844ca9865eb", null ],
     [ "WriteAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#a143a5dab919e2fc7855060ca568ea38d", null ],
     [ "WriteAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#afbb2bbd2c918a96ce993a4648933dd74", null ],
     [ "WriteAllTrees", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html#ab0331563fecf371471056c0a8907aa3d", null ],
