@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operator_21_3d_0',['operator!=',['../struct_phylo_tree_1_1_formats_1_1_attribute.html#aca905c8160928a9bbaeba8a85a794c31',1,'PhyloTree::Formats::Attribute']]],
-  ['operator_3d_3d_1',['operator==',['../struct_phylo_tree_1_1_formats_1_1_attribute.html#af05c0099515bd3e50ab33a01e2ce5989',1,'PhyloTree::Formats::Attribute']]]
+  ['median_0',['Median',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#a01682c04773c7db58266b88ec9724512',1,'PhyloTree::Extensions::TypeExtensions']]],
+  ['mutableratematrix_1',['MutableRateMatrix',['../class_phylo_tree_1_1_sequence_simulation_1_1_mutable_rate_matrix.html#abfad57ab2746dd53f84f201e8ab30c0f',1,'PhyloTree.SequenceSimulation.MutableRateMatrix.MutableRateMatrix(ReadOnlySpan&lt; char &gt; states)'],['../class_phylo_tree_1_1_sequence_simulation_1_1_mutable_rate_matrix.html#a3a5a63ad95f4a3311485965688c54a57',1,'PhyloTree.SequenceSimulation.MutableRateMatrix.MutableRateMatrix(ReadOnlySpan&lt; char &gt; states, double[,] rates)']]]
 ];

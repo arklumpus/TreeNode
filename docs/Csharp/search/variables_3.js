@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['values_174',['Values',['../class_phylo_tree_1_1_attribute_dictionary.html#a3dc7bb2c786952885a1546e0d37ccd98',1,'PhyloTree::AttributeDictionary']]]
+  ['lgmatrix_0',['LGMatrix',['../class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix_1_1_protein.html#a58698dc3283270c982ea7410017360cc',1,'PhyloTree::SequenceSimulation::RateMatrix::Protein']]]
 ];

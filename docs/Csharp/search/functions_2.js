@@ -1,4 +1,18 @@
 var searchData=
 [
-  ['dispose_0',['Dispose',['../class_phylo_tree_1_1_tree_collection.html#afcd38efdfb550231e319518d845f006b',1,'PhyloTree::TreeCollection']]]
+  ['clear_0',['Clear',['../class_phylo_tree_1_1_attribute_dictionary.html#aa96fbe0499c5c4c595b9985c1841213c',1,'PhyloTree.AttributeDictionary.Clear()'],['../class_phylo_tree_1_1_tree_collection.html#a70d987996399b2d5c74c8f3b283255af',1,'PhyloTree.TreeCollection.Clear()']]],
+  ['clone_1',['Clone',['../class_phylo_tree_1_1_tree_node.html#aa0016b82b80aded16c7c91a172d0c7a6',1,'PhyloTree::TreeNode']]],
+  ['collessindex_2',['CollessIndex',['../class_phylo_tree_1_1_tree_node.html#a9ffe9fee8982c73dcb91dba64103f985',1,'PhyloTree::TreeNode']]],
+  ['compareproteinsequencesblosum62_3',['CompareProteinSequencesBLOSUM62',['../class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#a08a21244c22fcbd18a2b9c88846fe1d8',1,'PhyloTree::TreeBuilding::DistanceMatrix']]],
+  ['conservationtoscale_4',['ConservationToScale',['../class_phylo_tree_1_1_sequence_simulation_1_1_sequence_simulation.html#a81a8f6db0c979596a61f70a0cb019de3',1,'PhyloTree::SequenceSimulation::SequenceSimulation']]],
+  ['contains_5',['Contains',['../class_phylo_tree_1_1_attribute_dictionary.html#a5227306b376f62e0cd492ab9aa200178',1,'PhyloTree.AttributeDictionary.Contains()'],['../class_phylo_tree_1_1_tree_collection.html#a0224981ee97b00cfcf75a3600764d02d',1,'PhyloTree.TreeCollection.Contains()']]],
+  ['containsall_3c_20t_20_3e_6',['ContainsAll&lt; T &gt;',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#a02acf20069636ce479b9933c060ad81f',1,'PhyloTree::Extensions::TypeExtensions']]],
+  ['containsany_3c_20t_20_3e_7',['ContainsAny&lt; T &gt;',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#aecf94560d23c379b943b02f9e59c218a',1,'PhyloTree::Extensions::TypeExtensions']]],
+  ['containskey_8',['ContainsKey',['../class_phylo_tree_1_1_attribute_dictionary.html#af7cba3eba6c97759dea59dbae170770b',1,'PhyloTree::AttributeDictionary']]],
+  ['convertdnasequences_9',['ConvertDNASequences',['../class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#a50a296a27555e932740cf5b787634719',1,'PhyloTree.TreeBuilding.DistanceMatrix.ConvertDNASequences(IEnumerable&lt; string &gt; sequences)'],['../class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#a1cc4f9977f1ae541d4cf9aec1aed36d0',1,'PhyloTree.TreeBuilding.DistanceMatrix.ConvertDNASequences(IReadOnlyList&lt; string &gt; sequences)']]],
+  ['convertproteinsequence_10',['ConvertProteinSequence',['../class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#ae6fd1c9b683fc927352ec12f688fd1e7',1,'PhyloTree::TreeBuilding::DistanceMatrix']]],
+  ['convertproteinsequences_11',['ConvertProteinSequences',['../class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#ab0548d1e35c5d777c0bcd67a56cbc209',1,'PhyloTree.TreeBuilding.DistanceMatrix.ConvertProteinSequences(IEnumerable&lt; string &gt; sequences)'],['../class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#a1d6d72c113c5ff74e8a6754ebb44e82d',1,'PhyloTree.TreeBuilding.DistanceMatrix.ConvertProteinSequences(IReadOnlyList&lt; string &gt; sequences)']]],
+  ['copyto_12',['CopyTo',['../class_phylo_tree_1_1_attribute_dictionary.html#afd53a06afef94ca78f53657fb0fb7c87',1,'PhyloTree.AttributeDictionary.CopyTo()'],['../class_phylo_tree_1_1_tree_collection.html#afeaa491a009afe8af256efd95c64ebdf',1,'PhyloTree.TreeCollection.CopyTo()']]],
+  ['createdistancematrixdouble_13',['CreateDistanceMatrixDouble',['../class_phylo_tree_1_1_tree_node.html#a54ec3e07db433bfaae5ac7ba95c5c8ce',1,'PhyloTree::TreeNode']]],
+  ['createdistancematrixfloat_14',['CreateDistanceMatrixFloat',['../class_phylo_tree_1_1_tree_node.html#a15020fb51af577a42774e6697751269f',1,'PhyloTree::TreeNode']]]
 ];

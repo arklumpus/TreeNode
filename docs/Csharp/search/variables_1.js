@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['isreadonly_172',['IsReadOnly',['../class_phylo_tree_1_1_attribute_dictionary.html#abb40c3439f025cf63fbf6fc3ea3630f7',1,'PhyloTree.AttributeDictionary.IsReadOnly()'],['../class_phylo_tree_1_1_tree_collection.html#a368311b316d498fe6b41c1610cdac83b',1,'PhyloTree.TreeCollection.IsReadOnly()']]]
+  ['dayhoffdcmutmatrix_0',['DayhoffDCMutMatrix',['../class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix_1_1_protein.html#a6bc52572934bb4a0370c78927c5b948f',1,'PhyloTree::SequenceSimulation::RateMatrix::Protein']]],
+  ['dayhoffmatrix_1',['DayhoffMatrix',['../class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix_1_1_protein.html#ac202dc693c60b65dd1e81cacc056fb18',1,'PhyloTree::SequenceSimulation::RateMatrix::Protein']]]
 ];

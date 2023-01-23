@@ -30,15 +30,19 @@ var NAVTREE =
       [ "Usage", "index.html#autotoc_md2", null ]
     ] ],
     [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ]
+      [ "Package List", "namespaces.html", "namespaces_dup" ],
+      [ "Package Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
+      ] ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Properties", "functions_prop.html", null ]
@@ -53,7 +57,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_attribute_dictionary_8cs_source.html",
-"class_phylo_tree_1_1_tree_collection.html#afcd38efdfb550231e319518d845f006b"
+"class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix.html#adf58f9b37d4382f375fc4b9d1b0b10ff",
+"class_phylo_tree_1_1_tree_building_1_1_thread_safe_random.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

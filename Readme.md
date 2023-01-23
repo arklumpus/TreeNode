@@ -100,6 +100,42 @@ In addition to this, the library also provides the `TreeCollection` class, which
 
 The key feature of `TreeCollection` is that this is done _transparently_: accessing an element of the collection, e.g. by using `treeCollection[i]`, will automatically perform all the reading and parsing operations from the stream to produce the `TreeNode` that is returned. This makes it possible to have an "agnostic" interface that behaves in the same way whether the trees in the collection have been completely loaded into memory or not.
 
+#### Tree statistics
+
+The TreeNode C# library can be used to compute some tree statistics:
+
+* The method `TreeNode.SackinIndex` can be used to compute the Sackin index of a tree.
+* The method `TreeNode.CollessIndex` can be used to compute the Colless index of a tree.
+* The static `TreeNode.GetCollessExpectationYHK` method can be used to compute the expected value of the Colless index for a tree with the specified number of leaves under the YHK model.
+* The method `TreeNode.NumberOfCherries` can be used to compute the number of cherries in the tree.
+
+These methods accept an optional `NullHypothesis` parameter that is used to determine what kind of normalisation is applied to the computed statistics: when this is `NullHypothesis.None` (the default), the value is not normalised; when this is `NullHypothesis.PDA`, the value is normalised assuming a proportional-to-distinguished-arrangements model (i.e., all labelled topologies are equally probable); when this is `NullHypothesis.YHK`, the value is normalised assuming a Yule-Harding-Kingman model (i.e. a pure-birth process).
+
+Furthermore, the static `TreeNode.RobinsonFouldsDistance` method and the instance method with the same name can be used to compute the Robinson-Foulds distance between two trees. In addition to the two trees, both methods require a boolean parameter called `weighted`: if this is `true`, the RF distance is weighted with the branch lengths (i.e., it is computed as the sum of the lengths of branches that induce a split that is present in one tree but not the other); if this is `false`, the classical RF distance is computed (which is the same as assuming that all branches have length 1).
+
+#### Tree building
+
+The TreeNode C# library can be used to build trees using the Neighbour-Joining or UPGMA algorithms, starting from a distance matrix or a sequence alignment, as well as to create random trees.
+
+The `PhyloTree.TreeBuilding` namespace contains static methods to create trees in different ways:
+* The `RandomTree` class contains methods to create random topologies or trees under the YHK and PDA models.
+* The `CoalescentTree` class contains methods to create labelled or unlabelled trees under the coalescent model.
+* The `BirthDeathTree` class contains methods to create labelled or unlabelled trees under the birth-death model.
+* The `DistanceMatrix` class contains methods to create a distance matrix from a sequence alignment (using various sequence evolution models).
+* The `UPGMA` class contains methods to build UPGMA trees from a distance matrix or from a sequence alignment.
+* The `NeighborJoining` class contains methods to build Neighbour-Joining trees from a distance matrix or from a sequence alignment.
+    
+    All the methods to create labelled trees (both random trees and UPGMA/Neighbour-joining) have an optional `constraint` parameter that can be used to constrain the tree returned by those methods.
+
+#### Sequence simulation
+
+The TreeNode C# library can also be used to create random sequences and to simulate sequence evolution. This can be achieved using the classes in the `PhyloTree.SequenceSimulation` namespace.
+
+* The `Sequence` class contains methods to create random sequences and to simulate the evolution of a sequence over a certain amount of time, including indel (insertion/deletion) simulation.
+* The `SequenceSimulation` static class contains methods to simulate sequence evolution along a phylogenetic tree.
+
+Many of these methods require a `RateMatrix` argument, which specifies the transition rate matrix for the sequence evolution model. The `RateMatrix.DNA` and `RateMatrix.Protein` classes contain the most common DNA and protein evolution matrices; otherwise, an arbitrary matrix (even non-time reversible) can be created using the `MutableRateMatrix` or `ImmutableRateMatrix` classes. This can also be used to create and simulate the evolution of a sequence of morphological characters, rather than DNA or proteins.
+
 ## Source code
 
 The source code for the TreeNode [R package](R/TreeNode) and [C# library](CSharp) is accessible from the respective folders in this repository and can be downloaded from the [Releases](https://github.com/arklumpus/TreeNode/releases) page.

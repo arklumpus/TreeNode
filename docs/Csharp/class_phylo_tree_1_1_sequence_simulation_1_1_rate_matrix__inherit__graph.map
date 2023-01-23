@@ -1,0 +1,6 @@
+<map id="PhyloTree.SequenceSimulation.RateMatrix" name="PhyloTree.SequenceSimulation.RateMatrix">
+<area shape="rect" id="node1" title="Represents a rate matrix for a continuous&#45;type Markov chain model. This type cannot be instantiated d..." alt="" coords="5,37,212,77"/>
+<area shape="rect" id="node2" href="$class_phylo_tree_1_1_sequence_simulation_1_1_i_mutable_rate_matrix.html" title="Represents a rate matrix whose values can be changed after initialisation." alt="" coords="260,5,467,45"/>
+<area shape="rect" id="node4" href="$class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix.html" title="Represents a rate matrix whose values cannot be changed after initialisation." alt="" coords="260,69,467,109"/>
+<area shape="rect" id="node3" href="$class_phylo_tree_1_1_sequence_simulation_1_1_mutable_rate_matrix.html" title="Represents a rate matrix whose values can be changed after initialisation." alt="" coords="515,5,721,45"/>
+</map>

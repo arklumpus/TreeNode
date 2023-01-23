@@ -13,6 +13,25 @@ var annotated_dup =
         [ "NEXUS", "class_phylo_tree_1_1_formats_1_1_n_e_x_u_s.html", "class_phylo_tree_1_1_formats_1_1_n_e_x_u_s" ],
         [ "NWKA", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html", "class_phylo_tree_1_1_formats_1_1_n_w_k_a" ]
       ] ],
+      [ "SequenceSimulation", "namespace_phylo_tree_1_1_sequence_simulation.html", [
+        [ "ImmutableRateMatrix", "class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix.html", "class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix" ],
+        [ "IMutableRateMatrix", "class_phylo_tree_1_1_sequence_simulation_1_1_i_mutable_rate_matrix.html", "class_phylo_tree_1_1_sequence_simulation_1_1_i_mutable_rate_matrix" ],
+        [ "IndelModel", "class_phylo_tree_1_1_sequence_simulation_1_1_indel_model.html", "class_phylo_tree_1_1_sequence_simulation_1_1_indel_model" ],
+        [ "Insertion", "struct_phylo_tree_1_1_sequence_simulation_1_1_insertion.html", "struct_phylo_tree_1_1_sequence_simulation_1_1_insertion" ],
+        [ "MutableRateMatrix", "class_phylo_tree_1_1_sequence_simulation_1_1_mutable_rate_matrix.html", "class_phylo_tree_1_1_sequence_simulation_1_1_mutable_rate_matrix" ],
+        [ "RateMatrix", "class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix.html", "class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix" ],
+        [ "Sequence", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence.html", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence" ],
+        [ "SequenceSimulation", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence_simulation.html", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence_simulation" ]
+      ] ],
+      [ "TreeBuilding", "namespace_phylo_tree_1_1_tree_building.html", [
+        [ "BirthDeathTree", "class_phylo_tree_1_1_tree_building_1_1_birth_death_tree.html", "class_phylo_tree_1_1_tree_building_1_1_birth_death_tree" ],
+        [ "CoalescentTree", "class_phylo_tree_1_1_tree_building_1_1_coalescent_tree.html", "class_phylo_tree_1_1_tree_building_1_1_coalescent_tree" ],
+        [ "DistanceMatrix", "class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html", "class_phylo_tree_1_1_tree_building_1_1_distance_matrix" ],
+        [ "NeighborJoining", "class_phylo_tree_1_1_tree_building_1_1_neighbor_joining.html", "class_phylo_tree_1_1_tree_building_1_1_neighbor_joining" ],
+        [ "RandomTree", "class_phylo_tree_1_1_tree_building_1_1_random_tree.html", "class_phylo_tree_1_1_tree_building_1_1_random_tree" ],
+        [ "ThreadSafeRandom", "class_phylo_tree_1_1_tree_building_1_1_thread_safe_random.html", "class_phylo_tree_1_1_tree_building_1_1_thread_safe_random" ],
+        [ "UPGMA", "class_phylo_tree_1_1_tree_building_1_1_u_p_g_m_a.html", "class_phylo_tree_1_1_tree_building_1_1_u_p_g_m_a" ]
+      ] ],
       [ "AttributeDictionary", "class_phylo_tree_1_1_attribute_dictionary.html", "class_phylo_tree_1_1_attribute_dictionary" ],
       [ "TreeCollection", "class_phylo_tree_1_1_tree_collection.html", "class_phylo_tree_1_1_tree_collection" ],
       [ "TreeNode", "class_phylo_tree_1_1_tree_node.html", "class_phylo_tree_1_1_tree_node" ]

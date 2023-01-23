@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keys_0',['Keys',['../class_phylo_tree_1_1_attribute_dictionary.html#a230d10d75b9d5cf9014cad657a8e9072',1,'PhyloTree::AttributeDictionary']]]
+  ['globalnames_0',['GlobalNames',['../class_phylo_tree_1_1_formats_1_1_binary_tree_metadata.html#abcc687a33b20bf24b7549b20a6908f90',1,'PhyloTree::Formats::BinaryTreeMetadata']]]
 ];
