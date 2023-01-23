@@ -188,7 +188,7 @@ namespace PhyloTree.Formats
                         {
                             status = NEXUSStatus.InTranslateStatement;
                         }
-                        else if (word.Equals("tree", StringComparison.OrdinalIgnoreCase))
+                        else if (word.Equals("tree", StringComparison.OrdinalIgnoreCase) || word.Equals("utree", StringComparison.OrdinalIgnoreCase))
                         {
                             status = NEXUSStatus.InTreeStatement;
                         }
