@@ -13,6 +13,11 @@ var annotated_dup =
         [ "NEXUS", "class_phylo_tree_1_1_formats_1_1_n_e_x_u_s.html", "class_phylo_tree_1_1_formats_1_1_n_e_x_u_s" ],
         [ "NWKA", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html", "class_phylo_tree_1_1_formats_1_1_n_w_k_a" ]
       ] ],
+      [ "SequenceScores", "namespace_phylo_tree_1_1_sequence_scores.html", [
+        [ "LikelihoodScores", "class_phylo_tree_1_1_sequence_scores_1_1_likelihood_scores.html", "class_phylo_tree_1_1_sequence_scores_1_1_likelihood_scores" ],
+        [ "MissingDataException", "class_phylo_tree_1_1_sequence_scores_1_1_missing_data_exception.html", "class_phylo_tree_1_1_sequence_scores_1_1_missing_data_exception" ],
+        [ "ParsimonyScore", "class_phylo_tree_1_1_sequence_scores_1_1_parsimony_score.html", "class_phylo_tree_1_1_sequence_scores_1_1_parsimony_score" ]
+      ] ],
       [ "SequenceSimulation", "namespace_phylo_tree_1_1_sequence_simulation.html", [
         [ "ImmutableRateMatrix", "class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix.html", "class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix" ],
         [ "IMutableRateMatrix", "class_phylo_tree_1_1_sequence_simulation_1_1_i_mutable_rate_matrix.html", "class_phylo_tree_1_1_sequence_simulation_1_1_i_mutable_rate_matrix" ],

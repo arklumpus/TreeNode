@@ -57,8 +57,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_attribute_dictionary_8cs_source.html",
-"class_phylo_tree_1_1_sequence_simulation_1_1_immutable_rate_matrix.html#adf58f9b37d4382f375fc4b9d1b0b10ff",
-"class_phylo_tree_1_1_tree_building_1_1_thread_safe_random.html"
+"class_phylo_tree_1_1_sequence_scores_1_1_likelihood_scores.html#afbd64521420f645063417e39df6626c1",
+"class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#a6515032cd1fd22026906c59d68c5b8b8",
+"functions_o.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

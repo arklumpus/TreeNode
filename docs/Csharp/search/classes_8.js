@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['randomtree_0',['RandomTree',['../class_phylo_tree_1_1_tree_building_1_1_random_tree.html',1,'PhyloTree::TreeBuilding']]],
-  ['ratematrix_1',['RateMatrix',['../class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix.html',1,'PhyloTree::SequenceSimulation']]]
+  ['parsimonyscore_0',['ParsimonyScore',['../class_phylo_tree_1_1_sequence_scores_1_1_parsimony_score.html',1,'PhyloTree::SequenceScores']]],
+  ['protein_1',['Protein',['../class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix_1_1_protein.html',1,'PhyloTree::SequenceSimulation::RateMatrix']]]
 ];

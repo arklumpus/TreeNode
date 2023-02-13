@@ -6,6 +6,9 @@ var hierarchy =
     [ "PhyloTree.TreeBuilding.CoalescentTree", "class_phylo_tree_1_1_tree_building_1_1_coalescent_tree.html", null ],
     [ "PhyloTree.TreeBuilding.DistanceMatrix", "class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html", null ],
     [ "PhyloTree.SequenceSimulation.RateMatrix.DNA", "class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix_1_1_d_n_a.html", null ],
+    [ "Exception", null, [
+      [ "PhyloTree.SequenceScores.MissingDataException", "class_phylo_tree_1_1_sequence_scores_1_1_missing_data_exception.html", null ]
+    ] ],
     [ "IDictionary", null, [
       [ "PhyloTree.AttributeDictionary", "class_phylo_tree_1_1_attribute_dictionary.html", null ]
     ] ],
@@ -23,11 +26,13 @@ var hierarchy =
     [ "IReadOnlyList", null, [
       [ "PhyloTree.SequenceSimulation.Sequence", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence.html", null ]
     ] ],
+    [ "PhyloTree.SequenceScores.LikelihoodScores", "class_phylo_tree_1_1_sequence_scores_1_1_likelihood_scores.html", null ],
     [ "PhyloTree.Formats.NcbiAsnBer", "class_phylo_tree_1_1_formats_1_1_ncbi_asn_ber.html", null ],
     [ "PhyloTree.Formats.NcbiAsnText", "class_phylo_tree_1_1_formats_1_1_ncbi_asn_text.html", null ],
     [ "PhyloTree.TreeBuilding.NeighborJoining", "class_phylo_tree_1_1_tree_building_1_1_neighbor_joining.html", null ],
     [ "PhyloTree.Formats.NEXUS", "class_phylo_tree_1_1_formats_1_1_n_e_x_u_s.html", null ],
     [ "PhyloTree.Formats.NWKA", "class_phylo_tree_1_1_formats_1_1_n_w_k_a.html", null ],
+    [ "PhyloTree.SequenceScores.ParsimonyScore", "class_phylo_tree_1_1_sequence_scores_1_1_parsimony_score.html", null ],
     [ "PhyloTree.SequenceSimulation.RateMatrix.Protein", "class_phylo_tree_1_1_sequence_simulation_1_1_rate_matrix_1_1_protein.html", null ],
     [ "Random", null, [
       [ "PhyloTree.TreeBuilding.ThreadSafeRandom", "class_phylo_tree_1_1_tree_building_1_1_thread_safe_random.html", null ]

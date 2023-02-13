@@ -1,5 +1,6 @@
 var files_dup =
 [
+    [ "SequenceScores", "dir_e17d4a7e4c8f0aae4de51e8f5d7e322b.html", "dir_e17d4a7e4c8f0aae4de51e8f5d7e322b" ],
     [ "SequenceSimulation", "dir_0f5e29a965a966139ef8e7db34c68f3d.html", "dir_0f5e29a965a966139ef8e7db34c68f3d" ],
     [ "TreeBuilding", "dir_547103345f06bcd771b4035fc6fd9dee.html", "dir_547103345f06bcd771b4035fc6fd9dee" ],
     [ "AttributeDictionary.cs", "_attribute_dictionary_8cs_source.html", null ],
