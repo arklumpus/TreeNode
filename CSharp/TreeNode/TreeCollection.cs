@@ -13,7 +13,7 @@ namespace PhyloTree
     /// Alternatively, the trees may be read on demand from a stream in binary format. In this case, accessing any of the trees will require the tree to be parsed. This reduces memory usage, but worsens performance.
     /// The internal storage model of the collection is transparent to consumers (except for the difference in performance/memory usage).
     /// </summary>
-    public class TreeCollection : IList<TreeNode>, IDisposable
+    public class TreeCollection : IList<TreeNode>, IReadOnlyList<TreeNode>, IDisposable
     {
         /// <summary>
         /// A list containing the <see cref="TreeNode"/> objects, if they are stored in memory.
