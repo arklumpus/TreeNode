@@ -49,13 +49,47 @@ namespace PhyloTree
 
             if (weighted)
             {
-                FillRobinsonFouldsDistanceMatrix(new TreeNode[] { tree1, tree2 }, wRFDistances: distMat, maxThreadCount: 1);
+                FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, wRFDistances: distMat, maxThreadCount: 1);
             }
             else
             {
-                FillRobinsonFouldsDistanceMatrix(new TreeNode[] { tree1, tree2 }, RFDistances: distMat, maxThreadCount: 1);
+                FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, RFDistances: distMat, maxThreadCount: 1);
             }
 
+            return distMat[0, 1];
+        }
+
+        /// <summary>
+        /// Computes the edge-length distance between the current tree and another tree.
+        /// </summary>
+        /// <param name="otherTree">The other tree whose distance to the current tree is computed.</param>
+        /// <returns>The edge-length distance between this tree and the <paramref name="otherTree"/>.</returns>
+        public double EdgeLengthDistance(TreeNode otherTree)
+        {
+            return EdgeLengthDistance(this, otherTree);
+        }
+
+        /// <summary>
+        /// Computes the edge-length distance between two trees.
+        /// </summary>
+        /// <param name="tree1">The first tree.</param>
+        /// <param name="tree2">The second tree.</param>
+        /// <returns>The edge-length distance between <paramref name="tree1"/> and <paramref name="tree2"/>.</returns>
+        public static double EdgeLengthDistance(TreeNode tree1, TreeNode tree2)
+        {
+            if (tree1 == null)
+            {
+                throw new ArgumentNullException(nameof(tree1), "The first tree cannot be null!");
+            }
+
+            if (tree2 == null)
+            {
+                throw new ArgumentNullException(nameof(tree2), "The second tree cannot be null!");
+            }
+
+            double[,] distMat = new double[2, 2];
+
+            FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, ELDistances: distMat, maxThreadCount: 1);
             return distMat[0, 1];
         }
 
@@ -90,12 +124,29 @@ namespace PhyloTree
 
             if (weighted)
             {
-                FillRobinsonFouldsDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, wRFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+                FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, wRFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
             }
             else
             {
-                FillRobinsonFouldsDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+                FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
             }
+
+            return distMat;
+        }
+
+        /// <summary>
+        /// Computes a distance matrix containing the edge-length distances between each pair of trees in a list.
+        /// </summary>
+        /// <param name="trees">The list of trees that should be compared.</param>
+        /// <param name="pruningMode">If this is <see cref="TreeComparisonPruningMode.Global"/>, all trees are pruned so that they only contain the subset of leaves that are present in all trees. If this is <see cref="TreeComparisonPruningMode.Pairwise"/>, during each comparisons the two trees are pruned so that they contain the subset of leaves that are in common between both of them.</param>
+        /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
+        /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
+        /// <returns>A square <see langword="double"/>[,] matrix containing the requested distances between the trees.</returns>
+        public static double[,] EdgeLengthDistances(IReadOnlyList<TreeNode> trees, TreeComparisonPruningMode pruningMode = TreeComparisonPruningMode.Pairwise, int maxThreadCount = -1, IProgress<double> progress = null)
+        {
+            double[,] distMat = new double[trees.Count, trees.Count];
+
+            FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, ELDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
 
             return distMat;
         }
@@ -115,7 +166,27 @@ namespace PhyloTree
             RFDistances = new double[trees.Count, trees.Count];
             weightedRFDistances = new double[trees.Count, trees.Count];
 
-            FillRobinsonFouldsDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, maxThreadCount: maxThreadCount, progress: progress);
+            FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, maxThreadCount: maxThreadCount, progress: progress);
+        }
+
+        /// <summary>
+        /// Computes three distance matrices containing the unweighted and weighted Robinson-Foulds distances and the edge-length distances between each pair of trees in a list. Much faster than computing the three distance matrices separately.
+        /// </summary>
+        /// <param name="trees">The list of trees that should be compared.</param>
+        /// <param name="RFDistances">When this method returns, this variable will contain the computed Robinson-Foulds distances between the trees.</param>
+        /// <param name="weightedRFDistances">When this method returns, this variable will contain the computed weighted Robinson-Foulds distances between the trees.</param>
+        /// <param name="ELDistances">When this method returns, this variable will contain the computed edge-length distances between the trees.</param>
+        /// <param name="pruningMode">If this is <see cref="TreeComparisonPruningMode.Global"/>, all trees are pruned so that they only contain the subset of leaves that are present in all trees. If this is <see cref="TreeComparisonPruningMode.Pairwise"/>, during each comparisons the two trees are pruned so that they contain the subset of leaves that are in common between both of them.</param>
+        /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
+        /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
+        /// <returns>A square <see langword="double"/>[,] matrix containing the requested distances between the trees.</returns>
+        public static void TreeDistances(IReadOnlyList<TreeNode> trees, out double[,] RFDistances, out double[,] weightedRFDistances, out double[,] ELDistances, TreeComparisonPruningMode pruningMode = TreeComparisonPruningMode.Pairwise, int maxThreadCount = -1, IProgress<double> progress = null)
+        {
+            RFDistances = new double[trees.Count, trees.Count];
+            weightedRFDistances = new double[trees.Count, trees.Count];
+            ELDistances = new double[trees.Count, trees.Count];
+
+            FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, ELDistances: ELDistances, maxThreadCount: maxThreadCount, progress: progress);
         }
 
 
@@ -129,7 +200,7 @@ namespace PhyloTree
         /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
         /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
         /// <exception cref="ArgumentException">Thrown if at least one of the trees has a tip without a name.</exception>
-        private static void FillRobinsonFouldsDistanceMatrix(IReadOnlyList<TreeNode> trees, bool comparePairwise = true, double[,] RFDistances = null, double[,] wRFDistances = null, int maxThreadCount = -1, IProgress<double> progress = null)
+        private static void FillDistanceMatrix(IReadOnlyList<TreeNode> trees, bool comparePairwise = true, double[,] RFDistances = null, double[,] wRFDistances = null, double[,] ELDistances = null, int maxThreadCount = -1, IProgress<double> progress = null)
         {
             if (maxThreadCount <= 0)
             {
@@ -188,6 +259,8 @@ namespace PhyloTree
                 splitOffsets[i] = splitOffsets[i - 1] + splitCounts[i - 1];
             }
 
+            double[][] leafLengths = new double[trees.Count][];
+
             // Each split consists of 1 bits for each leaf, determining whether the leaf is on one side of the split (0) or the other (1).
             int splitSize = (int)Math.Ceiling(leaves.Count / 8.0);
 
@@ -195,7 +268,7 @@ namespace PhyloTree
             int foundsSize = (int)Math.Ceiling(maxSplitCount / 8.0);
 
             // Each tree mask is the same size as a single split.
-            int totalMemoryNeeded = splitSize * (totalSplitCounts + trees.Count + maxThreadCount) + foundsSize * maxThreadCount;
+            int totalMemoryNeeded = splitSize * (totalSplitCounts + trees.Count + maxThreadCount + leaves.Count) + foundsSize * maxThreadCount;
 
             IntPtr memoryIntPtr = Marshal.AllocHGlobal(totalMemoryNeeded);
 
@@ -205,6 +278,7 @@ namespace PhyloTree
                 IntPtr foundsIntPtr = IntPtr.Add(comparisonMasksIntPtr, splitSize * maxThreadCount);
                 IntPtr masksIntPtr = IntPtr.Add(foundsIntPtr, foundsSize * maxThreadCount);
                 IntPtr splitsIntPtr = IntPtr.Add(masksIntPtr, splitSize * trees.Count);
+                IntPtr leafSplitsIntPtr = IntPtr.Add(splitsIntPtr, splitSize * totalSplitCounts);
 
                 unsafe
                 {
@@ -212,9 +286,17 @@ namespace PhyloTree
 
                     byte* masks = (byte*)masksIntPtr;
                     byte* splits = (byte*)splitsIntPtr;
+                    byte* leafSplits = (byte*)leafSplitsIntPtr;
+
+                    for (int i = 0; i < leaves.Count; i++)
+                    {
+                        leafSplits[splitSize * i + i / 8] |= (byte)(0b1 << (i % 8));
+                    }
 
                     for (int i = 0; i < trees.Count; i++)
                     {
+                        leafLengths[i] = new double[leaves.Count];
+
                         byte* currMask = masks + i * splitSize;
                         byte* currSplits = splits + splitSize * splitOffsets[i];
 
@@ -228,6 +310,8 @@ namespace PhyloTree
                                 int bitIndex = index % 8;
 
                                 currMask[byteIndex] |= (byte)(0b1 << bitIndex);
+
+                                leafLengths[i][index] = node.Length;
                             }
                         }
 
@@ -289,10 +373,21 @@ namespace PhyloTree
                     HashSet<SplitPointer>[] alreadyCheckedSplits1 = new HashSet<SplitPointer>[maxThreadCount];
                     HashSet<SplitPointer>[] alreadyCheckedSplits2 = new HashSet<SplitPointer>[maxThreadCount];
 
+                    Dictionary<SplitPointer, double>[] splitLengths1 = null;
+                    Dictionary<SplitPointer, double>[] splitLengths2 = null;
+
+                    if (ELDistances != null)
+                    {
+                        splitLengths1 = new Dictionary<SplitPointer, double>[maxThreadCount];
+                        splitLengths2 = new Dictionary<SplitPointer, double>[maxThreadCount];
+                    }
+
                     for (int i = 0; i < maxThreadCount; i++)
                     {
                         alreadyCheckedSplits1[i] = new HashSet<SplitPointer>(maxSplitCount);
                         alreadyCheckedSplits2[i] = new HashSet<SplitPointer>(maxSplitCount);
+                        splitLengths1[i] = new Dictionary<SplitPointer, double>(maxSplitCount);
+                        splitLengths2[i] = new Dictionary<SplitPointer, double>(maxSplitCount);
                     }
 
                     Parallel.For(0, comparisonCounts, new ParallelOptions() { MaxDegreeOfParallelism = maxThreadCount }, index =>
@@ -329,33 +424,55 @@ namespace PhyloTree
                         alreadyCheckedSplits1[threadIndex].Clear();
                         alreadyCheckedSplits2[threadIndex].Clear();
 
-                        for (int k = 0; k < splitCounts[i]; k++)
+                        if (RFDistances != null || wRFDistances != null)
                         {
-                            if (CheckIfMoreThanOne(splits + (splitOffsets[i] + k) * splitSize, currMask, splitSize))
+                            for (int k = 0; k < splitCounts[i]; k++)
                             {
-                                if (RFDistances != null)
+                                if (CheckIfMoreThanOne(splits + (splitOffsets[i] + k) * splitSize, currMask, splitSize))
                                 {
-                                    SplitPointer split = new SplitPointer(splits + (splitOffsets[i] + k) * splitSize, currMask, splitSize);
-
-                                    if (alreadyCheckedSplits1[threadIndex].Add(split))
+                                    if (RFDistances != null)
                                     {
-                                        bool found = false;
+                                        SplitPointer split = new SplitPointer(splits + (splitOffsets[i] + k) * splitSize, currMask, splitSize);
 
-                                        for (int l = 0; l < splitCounts[j]; l++)
+                                        if (alreadyCheckedSplits1[threadIndex].Add(split))
                                         {
-                                            if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                            bool found = false;
+
+                                            for (int l = 0; l < splitCounts[j]; l++)
                                             {
-                                                found = true;
-                                                currFounds[l / 8] |= (byte)(0b1 << (l % 8));
-                                                alreadyCheckedSplits2[threadIndex].Add(new SplitPointer(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize));
-                                                break;
+                                                if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                                {
+                                                    found = true;
+                                                    currFounds[l / 8] |= (byte)(0b1 << (l % 8));
+                                                    alreadyCheckedSplits2[threadIndex].Add(new SplitPointer(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize));
+                                                    break;
+                                                }
+                                            }
+
+                                            if (!found)
+                                            {
+                                                dist++;
+                                                wDist += splitLengths[i][k];
                                             }
                                         }
-
-                                        if (!found)
+                                        else if (wRFDistances != null)
                                         {
-                                            dist++;
-                                            wDist += splitLengths[i][k];
+                                            bool found = false;
+
+                                            for (int l = 0; l < splitCounts[j]; l++)
+                                            {
+                                                if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                                {
+                                                    found = true;
+                                                    currFounds[l / 8] |= (byte)(0b1 << (l % 8));
+                                                    break;
+                                                }
+                                            }
+
+                                            if (!found)
+                                            {
+                                                wDist += splitLengths[i][k];
+                                            }
                                         }
                                     }
                                     else if (wRFDistances != null)
@@ -378,55 +495,54 @@ namespace PhyloTree
                                         }
                                     }
                                 }
-                                else if (wRFDistances != null)
-                                {
-                                    bool found = false;
-
-                                    for (int l = 0; l < splitCounts[j]; l++)
-                                    {
-                                        if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
-                                        {
-                                            found = true;
-                                            currFounds[l / 8] |= (byte)(0b1 << (l % 8));
-                                            break;
-                                        }
-                                    }
-
-                                    if (!found)
-                                    {
-                                        wDist += splitLengths[i][k];
-                                    }
-                                }
                             }
-                        }
 
-                        for (int l = 0; l < splitCounts[j]; l++)
-                        {
-                            if ((currFounds[l / 8] & (byte)(0b1 << (l % 8))) == 0)
+                            for (int l = 0; l < splitCounts[j]; l++)
                             {
-                                if (CheckIfMoreThanOne(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                if ((currFounds[l / 8] & (byte)(0b1 << (l % 8))) == 0)
                                 {
-                                    if (RFDistances != null)
+                                    if (CheckIfMoreThanOne(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
                                     {
-                                        SplitPointer split = new SplitPointer(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize);
-
-                                        if (alreadyCheckedSplits2[threadIndex].Add(split))
+                                        if (RFDistances != null)
                                         {
-                                            bool found = false;
+                                            SplitPointer split = new SplitPointer(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize);
 
-                                            for (int k = 0; k < splitCounts[i]; k++)
+                                            if (alreadyCheckedSplits2[threadIndex].Add(split))
                                             {
-                                                if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                                bool found = false;
+
+                                                for (int k = 0; k < splitCounts[i]; k++)
                                                 {
-                                                    found = true;
-                                                    break;
+                                                    if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                                    {
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (!found)
+                                                {
+                                                    dist++;
+                                                    wDist += splitLengths[j][l];
                                                 }
                                             }
-
-                                            if (!found)
+                                            else if (wRFDistances != null)
                                             {
-                                                dist++;
-                                                wDist += splitLengths[j][l];
+                                                bool found = false;
+
+                                                for (int k = 0; k < splitCounts[i]; k++)
+                                                {
+                                                    if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
+                                                    {
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (!found)
+                                                {
+                                                    wDist += splitLengths[j][l];
+                                                }
                                             }
                                         }
                                         else if (wRFDistances != null)
@@ -448,26 +564,81 @@ namespace PhyloTree
                                             }
                                         }
                                     }
-                                    else if (wRFDistances != null)
+                                }
+                            }
+                        }
+
+                        if (ELDistances != null)
+                        {
+                            splitLengths1[threadIndex].Clear();
+                            splitLengths2[threadIndex].Clear();
+
+                            for (int k = 0; k < splitCounts[i]; k++)
+                            {
+                                SplitPointer split = new SplitPointer(splits + (splitOffsets[i] + k) * splitSize, currMask, splitSize);
+
+                                if (splitLengths1[threadIndex].TryGetValue(split, out double val))
+                                {
+                                    splitLengths1[threadIndex][split] = val + splitLengths[i][k];
+                                }
+                                else
+                                {
+                                    splitLengths1[threadIndex][split] = splitLengths[i][k];
+                                }
+                            }
+
+                            for (int l = 0; l < splitCounts[j]; l++)
+                            {
+                                SplitPointer split = new SplitPointer(splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize);
+
+                                if (splitLengths2[threadIndex].TryGetValue(split, out double val))
+                                {
+                                    splitLengths2[threadIndex][split] = val + splitLengths[j][l];
+                                }
+                                else
+                                {
+                                    splitLengths2[threadIndex][split] = splitLengths[j][l];
+                                }
+                            }
+
+                            for (int k = 0; k < leaves.Count; k++)
+                            {
+                                if ((currMask[k / 8] & (byte)(0b1 << (k % 8))) != 0 && !double.IsNaN(leafLengths[i][k]) && !double.IsNaN(leafLengths[j][k]))
+                                {
+                                    SplitPointer split = new SplitPointer(leafSplits + k * splitSize, currMask, splitSize);
+
+                                    if (splitLengths1[threadIndex].TryGetValue(split, out double val))
                                     {
-                                        bool found = false;
+                                        splitLengths1[threadIndex][split] = val + leafLengths[i][k];
+                                    }
+                                    else
+                                    {
+                                        splitLengths1[threadIndex][split] = leafLengths[i][k];
+                                    }
 
-                                        for (int k = 0; k < splitCounts[i]; k++)
-                                        {
-                                            if (CompareSplits(splits + (splitOffsets[i] + k) * splitSize, splits + (splitOffsets[j] + l) * splitSize, currMask, splitSize))
-                                            {
-                                                found = true;
-                                                break;
-                                            }
-                                        }
-
-                                        if (!found)
-                                        {
-                                            wDist += splitLengths[j][l];
-                                        }
+                                    if (splitLengths2[threadIndex].TryGetValue(split, out double val2))
+                                    {
+                                        splitLengths2[threadIndex][split] = val2 + leafLengths[j][k];
+                                    }
+                                    else
+                                    {
+                                        splitLengths2[threadIndex][split] = leafLengths[j][k];
                                     }
                                 }
                             }
+
+                            double totDist = 0;
+
+                            foreach (KeyValuePair<SplitPointer, double> kvp in splitLengths1[threadIndex])
+                            {
+                                if (!double.IsNaN(kvp.Value) && splitLengths2[threadIndex].TryGetValue(kvp.Key, out double val) && !double.IsNaN(val))
+                                {
+                                    totDist += (kvp.Value - val) * (kvp.Value - val);
+                                }
+                            }
+
+                            ELDistances[i, j] = Math.Sqrt(totDist);
+                            ELDistances[j, i] = ELDistances[i, j];
                         }
 
                         if (RFDistances != null)
