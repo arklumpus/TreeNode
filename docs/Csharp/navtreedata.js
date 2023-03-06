@@ -59,7 +59,7 @@ var NAVTREEINDEX =
 "_attribute_dictionary_8cs_source.html",
 "class_phylo_tree_1_1_sequence_scores_1_1_likelihood_scores.html#afbd64521420f645063417e39df6626c1",
 "class_phylo_tree_1_1_tree_building_1_1_distance_matrix.html#a6515032cd1fd22026906c59d68c5b8b8",
-"functions_o.html"
+"functions_func_p.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

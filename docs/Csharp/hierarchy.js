@@ -24,7 +24,8 @@ var hierarchy =
     [ "PhyloTree.SequenceSimulation.IndelModel", "class_phylo_tree_1_1_sequence_simulation_1_1_indel_model.html", null ],
     [ "PhyloTree.SequenceSimulation.Insertion", "struct_phylo_tree_1_1_sequence_simulation_1_1_insertion.html", null ],
     [ "IReadOnlyList", null, [
-      [ "PhyloTree.SequenceSimulation.Sequence", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence.html", null ]
+      [ "PhyloTree.SequenceSimulation.Sequence", "class_phylo_tree_1_1_sequence_simulation_1_1_sequence.html", null ],
+      [ "PhyloTree.TreeCollection", "class_phylo_tree_1_1_tree_collection.html", null ]
     ] ],
     [ "PhyloTree.SequenceScores.LikelihoodScores", "class_phylo_tree_1_1_sequence_scores_1_1_likelihood_scores.html", null ],
     [ "PhyloTree.Formats.NcbiAsnBer", "class_phylo_tree_1_1_formats_1_1_ncbi_asn_ber.html", null ],

@@ -11,8 +11,10 @@ var searchData=
   ['totallength_8',['TotalLength',['../class_phylo_tree_1_1_tree_node.html#a0c8dc9e138bb0ccc6e1bd75a457b2a62',1,'PhyloTree::TreeNode']]],
   ['treeaddresses_9',['TreeAddresses',['../class_phylo_tree_1_1_formats_1_1_binary_tree_metadata.html#a387744f9d8b6adebf6b3a6afe9b3c942',1,'PhyloTree::Formats::BinaryTreeMetadata']]],
   ['treecollection_10',['TreeCollection',['../class_phylo_tree_1_1_tree_collection.html',1,'PhyloTree.TreeCollection'],['../class_phylo_tree_1_1_tree_collection.html#a9dbabce2dc202546a80b3ccbe2337b4c',1,'PhyloTree.TreeCollection.TreeCollection(List&lt; TreeNode &gt; internalStorage)'],['../class_phylo_tree_1_1_tree_collection.html#ae48f9b23e69dc65208f38eb1087a37aa',1,'PhyloTree.TreeCollection.TreeCollection(Stream binaryTreeStream)']]],
-  ['treenode_11',['TreeNode',['../class_phylo_tree_1_1_tree_node.html',1,'PhyloTree.TreeNode'],['../class_phylo_tree_1_1_tree_node.html#af46398d315eaa6c973f21655baed8030',1,'PhyloTree.TreeNode.TreeNode()']]],
-  ['treenode_20c_23_20library_12',['TreeNode C# library',['../index.html',1,'']]],
-  ['trygetvalue_13',['TryGetValue',['../class_phylo_tree_1_1_attribute_dictionary.html#ab1e83eb65e7c663ef25e0f8b0a2ac4b3',1,'PhyloTree::AttributeDictionary']]],
-  ['typeextensions_14',['TypeExtensions',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html',1,'PhyloTree::Extensions']]]
+  ['treecomparisonpruningmode_11',['TreeComparisonPruningMode',['../class_phylo_tree_1_1_tree_node.html#a8631f5ff68e68d8715bc76f09c7d9a12',1,'PhyloTree::TreeNode']]],
+  ['treedistances_12',['TreeDistances',['../class_phylo_tree_1_1_tree_node.html#a9869d3f7173986de63ea96fd05b708ed',1,'PhyloTree::TreeNode']]],
+  ['treenode_13',['TreeNode',['../class_phylo_tree_1_1_tree_node.html',1,'PhyloTree.TreeNode'],['../class_phylo_tree_1_1_tree_node.html#af46398d315eaa6c973f21655baed8030',1,'PhyloTree.TreeNode.TreeNode()']]],
+  ['treenode_20c_23_20library_14',['TreeNode C# library',['../index.html',1,'']]],
+  ['trygetvalue_15',['TryGetValue',['../class_phylo_tree_1_1_attribute_dictionary.html#ab1e83eb65e7c663ef25e0f8b0a2ac4b3',1,'PhyloTree::AttributeDictionary']]],
+  ['typeextensions_16',['TypeExtensions',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html',1,'PhyloTree::Extensions']]]
 ];
