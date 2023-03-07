@@ -386,8 +386,11 @@ namespace PhyloTree
                     {
                         alreadyCheckedSplits1[i] = new HashSet<SplitPointer>(maxSplitCount);
                         alreadyCheckedSplits2[i] = new HashSet<SplitPointer>(maxSplitCount);
-                        splitLengths1[i] = new Dictionary<SplitPointer, double>(maxSplitCount);
-                        splitLengths2[i] = new Dictionary<SplitPointer, double>(maxSplitCount);
+                        if (ELDistances != null)
+                        {
+                            splitLengths1[i] = new Dictionary<SplitPointer, double>(maxSplitCount);
+                            splitLengths2[i] = new Dictionary<SplitPointer, double>(maxSplitCount);
+                        }
                     }
 
                     Parallel.For(0, comparisonCounts, new ParallelOptions() { MaxDegreeOfParallelism = maxThreadCount }, index =>
