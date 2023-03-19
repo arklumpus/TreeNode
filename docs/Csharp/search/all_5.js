@@ -3,7 +3,7 @@ var searchData=
   ['getchildrenrecursive_0',['GetChildrenRecursive',['../class_phylo_tree_1_1_tree_node.html#a743b017396075e239e260285863a77f0',1,'PhyloTree::TreeNode']]],
   ['getchildrenrecursivelazy_1',['GetChildrenRecursiveLazy',['../class_phylo_tree_1_1_tree_node.html#a2cf2d3739f48c1ae193e9093ddfdaf9c',1,'PhyloTree::TreeNode']]],
   ['getcollessexpectationyhk_2',['GetCollessExpectationYHK',['../class_phylo_tree_1_1_tree_node.html#a2b0369855a2f847672a5344d1d635da1',1,'PhyloTree::TreeNode']]],
-  ['getconsensus_3',['GetConsensus',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#a18e3cf1676e309bb02ea1ece8d7d7fc4',1,'PhyloTree::Extensions::TypeExtensions']]],
+  ['getconsensus_3',['GetConsensus',['../class_phylo_tree_1_1_extensions_1_1_type_extensions.html#a2939d6e54ac82a671b7e173f860c9fce',1,'PhyloTree::Extensions::TypeExtensions']]],
   ['getdepth_4',['GetDepth',['../class_phylo_tree_1_1_tree_node.html#aa3eabbc36bc10135b09727996a91e1bd',1,'PhyloTree::TreeNode']]],
   ['getenumerator_5',['GetEnumerator',['../class_phylo_tree_1_1_attribute_dictionary.html#af0baeb16cfe5b9fba61edfb81b9ecfd6',1,'PhyloTree.AttributeDictionary.GetEnumerator()'],['../class_phylo_tree_1_1_tree_collection.html#a7126ced6a3f47903a88b6157293f0fcb',1,'PhyloTree.TreeCollection.GetEnumerator()'],['../class_phylo_tree_1_1_sequence_simulation_1_1_sequence.html#a75021b32ed8ee3dc7dd464a20caf5e1d',1,'PhyloTree.SequenceSimulation.Sequence.GetEnumerator()']]],
   ['gethashcode_6',['GetHashCode',['../struct_phylo_tree_1_1_formats_1_1_attribute.html#af3d07de861ddf3a7cfa46a028836dfc6',1,'PhyloTree::Formats::Attribute']]],

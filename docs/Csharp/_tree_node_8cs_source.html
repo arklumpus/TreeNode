@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="Logo.svg"/></td>
   <td id="projectalign">
-   <div id="projectname">TreeNode<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">TreeNode<span id="projectnumber">&#160;1.5.2</span>
    </div>
    <div id="projectbrief">A library to manipulate phylogenetic trees</div>
   </td>
@@ -174,7 +174,7 @@ $(document).ready(function(){initNavTree('_tree_node_8cs_source.html',''); initR
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">        /// &lt;/summary&gt;</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">        /// &lt;param name=&quot;s1&quot;&gt;The first &lt;see cref=&quot;Split&quot;/&gt; to compare.&lt;/param&gt;</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">        /// &lt;param name=&quot;s2&quot;&gt;The second &lt;see cref=&quot;Split&quot;/&gt; to compare.&lt;/param&gt;</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">        /// &lt;returns&gt;&lt;c&gt;true&lt;/c&gt; if the two &lt;see cref=&quot;Split&quot;/&gt;s are compatible with each other, &lt;c&gt;false&lt;/c&gt; if the are not.&lt;/returns&gt;</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">        /// &lt;returns&gt;&lt;c&gt;true&lt;/c&gt; if the two &lt;see cref=&quot;Split&quot;/&gt;s are compatible with each other, &lt;c&gt;false&lt;/c&gt; if they are not.&lt;/returns&gt;</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"></span>        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> AreCompatible(Split s1, Split s2)</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        {</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">if</span> (!s1.Name.Contains(<span class="stringliteral">&quot;|&quot;</span>, StringComparison.OrdinalIgnoreCase) &amp;&amp; !s2.Name.Contains(<span class="stringliteral">&quot;|&quot;</span>, StringComparison.OrdinalIgnoreCase))</div>
@@ -378,7 +378,7 @@ $(document).ready(function(){initNavTree('_tree_node_8cs_source.html',''); initR
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>                        nodes.Add(parent);</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                    }</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (currChildren.Count &gt; 0)</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                    {</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                        currChildren[0].Support = Math.Min(currChildren[0].Support, allSplits[i].Support);</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
@@ -1737,7 +1737,7 @@ $(document).ready(function(){initNavTree('_tree_node_8cs_source.html',''); initR
 <div class="ttc" id="aclass_phylo_tree_1_1_tree_node_html_af46398d315eaa6c973f21655baed8030"><div class="ttname"><a href="class_phylo_tree_1_1_tree_node.html#af46398d315eaa6c973f21655baed8030">PhyloTree.TreeNode.TreeNode</a></div><div class="ttdeci">TreeNode(TreeNode parent)</div><div class="ttdoc">Creates a new TreeNode object.</div><div class="ttdef"><b>Definition:</b> <a href="_tree_node_8cs_source.html#l00378">TreeNode.cs:378</a></div></div>
 <div class="ttc" id="aclass_phylo_tree_1_1_tree_node_html_af6f61b610664c8de60f2622420318f69"><div class="ttname"><a href="class_phylo_tree_1_1_tree_node.html#af6f61b610664c8de60f2622420318f69">PhyloTree.TreeNode.GetNodeFromName</a></div><div class="ttdeci">TreeNode GetNodeFromName(string nodeName)</div><div class="ttdoc">Get the child node with the specified name.</div><div class="ttdef"><b>Definition:</b> <a href="_tree_node_8cs_source.html#l00680">TreeNode.cs:680</a></div></div>
 <div class="ttc" id="aclass_phylo_tree_1_1_tree_node_html_afd3cbefbf37e7aaa6d3516bca73d8a07"><div class="ttname"><a href="class_phylo_tree_1_1_tree_node.html#afd3cbefbf37e7aaa6d3516bca73d8a07">PhyloTree.TreeNode.NodeRelationship</a></div><div class="ttdeci">NodeRelationship</div><div class="ttdoc">Describes the relationship between two nodes.</div><div class="ttdef"><b>Definition:</b> <a href="_tree_node_8cs_source.html#l00807">TreeNode.cs:808</a></div></div>
-<div class="ttc" id="anamespace_phylo_tree_1_1_extensions_html"><div class="ttname"><a href="namespace_phylo_tree_1_1_extensions.html">PhyloTree.Extensions</a></div><div class="ttdoc">Contains useful extension methods.</div><div class="ttdef"><b>Definition:</b> <a href="_extensions_8cs_source.html#l00011">Extensions.cs:12</a></div></div>
+<div class="ttc" id="anamespace_phylo_tree_1_1_extensions_html"><div class="ttname"><a href="namespace_phylo_tree_1_1_extensions.html">PhyloTree.Extensions</a></div><div class="ttdoc">Contains useful extension methods.</div><div class="ttdef"><b>Definition:</b> <a href="_extensions_8cs_source.html#l00014">Extensions.cs:15</a></div></div>
 <div class="ttc" id="anamespace_phylo_tree_1_1_formats_html"><div class="ttname"><a href="namespace_phylo_tree_1_1_formats.html">PhyloTree.Formats</a></div><div class="ttdoc">Contains classes and methods to read and write phylogenetic trees in multiple formats</div><div class="ttdef"><b>Definition:</b> <a href="_binary_8cs_source.html#l00011">Binary.cs:12</a></div></div>
 <div class="ttc" id="anamespace_phylo_tree_html"><div class="ttname"><a href="namespace_phylo_tree.html">PhyloTree</a></div><div class="ttdoc">Contains classes and methods to read, write and manipulate phylogenetic trees.</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_dictionary_8cs_source.html#l00007">AttributeDictionary.cs:8</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
