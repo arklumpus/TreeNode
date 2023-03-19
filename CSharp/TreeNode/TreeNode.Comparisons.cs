@@ -197,6 +197,7 @@ namespace PhyloTree
         /// <param name="comparePairwise">If this is <see langword="false"/>, only leaves that are in common to all trees are used. If this is <see langword="true" />, for each pair of trees, the leaves that are in common between them are used.</param>
         /// <param name="RFDistances">The matrix to be filled with Robinson-Foulds distances, or <see langword="null"/>.</param>
         /// <param name="wRFDistances">The matrix to be filled with weighted Robinson-Foulds distances, or <see langword="null"/>.</param>
+        /// <param name="ELDistances">The matrix to be filled with edge-length distances, or <see langword="null"/>.</param>
         /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
         /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
         /// <exception cref="ArgumentException">Thrown if at least one of the trees has a tip without a name.</exception>
