@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Contains useful extension methods.
@@ -107,8 +110,9 @@ namespace PhyloTree.Extensions
         /// <param name="threshold">The (inclusive) threshold for splits to be included in the consensus tree. Use <c>0</c> to get all compatible splits, <c>0.5</c> for a majority-rule consensus or <c>1</c> for a strict consensus.</param>
         /// <param name="useMedian">If this is <c>true</c>, the lengths of the branches in the tree will be computed based on the median length/age of the splits used to build the tree. Otherwise, the mean will be used.</param>
         /// <param name="progressAction">An <see cref="Action"/> that will be invoked as the trees are processed.</param>
+        /// <param name="useParallelOptimisation">If this is <c>true</c>, parts of the consensus computation will be parallelised. This will, however, increase the number of computations that need to be performed. The advantages will differ based on the number of trees, how discordant they are, and the characteristics of the processor.</param>
         /// <returns>A rooted consensus tree.</returns>
-        public static TreeNode GetConsensus(this IEnumerable<TreeNode> trees, bool rooted, bool clockLike, double threshold, bool useMedian, Action<double> progressAction = null)
+        public static TreeNode GetConsensus(this IEnumerable<TreeNode> trees, bool rooted, bool clockLike, double threshold, bool useMedian, Action<double> progressAction = null, bool useParallelOptimisation = false)
         {
             Contract.Requires(trees != null);
 
@@ -145,27 +149,175 @@ namespace PhyloTree.Extensions
 
                 if (count > 0)
                 {
-                    progressAction?.Invoke((double)totalTrees / count);
+                    progressAction?.Invoke((double)totalTrees / count * 0.5);
                 }
                 else
                 {
-                    progressAction?.Invoke(totalTrees);
+                    progressAction?.Invoke(totalTrees * 0.5);
                 }
             }
 
             List<Split> orderedSplits = new List<Split>(from el in splits orderby el.Value.Count descending where ((double)el.Value.Count / (double)totalTrees) >= threshold select new Split(el.Key, (useMedian ? el.Value.Median() : el.Value.Average()), lengthType, ((double)el.Value.Count / (double)totalTrees)));
+            List<Split> finalSplits;
 
-            List<Split> finalSplits = new List<Split>();
-
-            for (int i = 0; i < orderedSplits.Count; i++)
+            if (!useParallelOptimisation)
             {
-                if (orderedSplits[i].IsCompatible(finalSplits))
+                finalSplits = new List<Split>();
+
+                for (int i = 0; i < orderedSplits.Count; i++)
                 {
-                    finalSplits.Add(orderedSplits[i]);
+                    if (orderedSplits[i].IsCompatible(finalSplits))
+                    {
+                        finalSplits.Add(orderedSplits[i]);
+                    }
+
+                    if (i % Math.Max(1, orderedSplits.Count / 100) == 0)
+                    {
+                        if (count > 0)
+                        {
+                            progressAction?.Invoke(0.5 + 0.5 * (i + 1) / orderedSplits.Count);
+                        }
+                        else
+                        {
+                            progressAction?.Invoke(totalTrees * (0.5 + 0.5 * (i + 1) / orderedSplits.Count));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                static int getIndex(int i, int j, int n)
+                {
+                    return n * (n - 1) / 2 - (n - i) * (n - i - 1) / 2 + j - i - 1;
+                }
+
+                static (int i, int j) getIndices(int index, int n)
+                {
+                    int i = n - 2 - (int)Math.Floor(Math.Sqrt(-8 * index + 4 * n * (n - 1) - 7) / 2 - 0.5);
+                    int j = index + i + 1 - n * (n - 1) / 2 + (n - i) * ((n - i) - 1) / 2;
+                    return (i, j);
+                }
+
+                bool[] areCompatibles = new bool[orderedSplits.Count * (orderedSplits.Count - 1) / 2];
+
+                int progressCount = 0;
+                object progressLock = new object();
+
+                int threadCount = Environment.ProcessorCount / 2;
+
+                int elementsByThread = (int)Math.Ceiling((double)areCompatibles.Length / threadCount);
+
+                Thread[] threads = new Thread[threadCount];
+
+                for (int p = 0; p < threadCount; p++)
+                {
+                    int min = p * elementsByThread;
+                    int max = Math.Min((p + 1) * elementsByThread, areCompatibles.Length);
+
+                    threads[p] = new Thread(() =>
+                    {
+                        int lastReported = min;
+
+                        for (int k = min; k < max; k++)
+                        {
+                            (int i, int j) = getIndices(k, orderedSplits.Count);
+
+                            areCompatibles[k] = Split.AreCompatible(orderedSplits[i], orderedSplits[j]);
+
+                            if ((k - min) % Math.Max(1, (max - min) / 50) == 0)
+                            {
+                                lock (progressLock)
+                                {
+                                    progressCount += k - lastReported + 1;
+                                    lastReported = k + 1;
+
+                                    if (count > 0)
+                                    {
+                                        progressAction?.Invoke(Math.Min(1, 0.5 + 0.5 * progressCount / areCompatibles.Length));
+                                    }
+                                    else
+                                    {
+                                        progressAction?.Invoke(Math.Min(1, totalTrees * (0.5 + 0.5 * progressCount / areCompatibles.Length)));
+                                    }
+                                }
+                            }
+                        }
+
+                        lock (progressLock)
+                        {
+                            progressCount += max - lastReported;
+
+                            if (count > 0)
+                            {
+                                progressAction?.Invoke(Math.Min(1, 0.5 + 0.5 * progressCount / areCompatibles.Length));
+                            }
+                            else
+                            {
+                                progressAction?.Invoke(Math.Min(1, totalTrees * (0.5 + 0.5 * progressCount / areCompatibles.Length)));
+                            }
+                        }
+                    });
+                }
+
+                for (int p = 0; p < threadCount; p++)
+                {
+                    threads[p].Start();
+                }
+
+                for (int p = 0; p < threadCount; p++)
+                {
+                    threads[p].Join();
+                }
+
+                List<int> finalSplitIndices = new List<int>();
+
+                for (int i = 0; i < orderedSplits.Count; i++)
+                {
+                    bool isCompatible = true;
+
+                    for (int j = 0; j < finalSplitIndices.Count; j++)
+                    {
+                        if (finalSplitIndices[j] != i)
+                        {
+                            if (!areCompatibles[getIndex(Math.Max(i, finalSplitIndices[j]), Math.Min(i, finalSplitIndices[j]), orderedSplits.Count)])
+                            {
+                                isCompatible = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (isCompatible)
+                    {
+                        finalSplitIndices.Add(i);
+                    }
+                }
+
+                finalSplits = new List<Split>(finalSplitIndices.Count);
+
+                for (int i = 0; i < finalSplitIndices.Count; i++)
+                {
+                    finalSplits.Add(orderedSplits[finalSplitIndices[i]]);
                 }
             }
 
-            return Split.BuildTree(finalSplits, rooted);
+            if (count > 0)
+            {
+                progressAction(1);
+            }
+            else
+            {
+                progressAction(totalTrees);
+            }
+
+            if (finalSplits.Count > 0)
+            {
+                return Split.BuildTree(finalSplits, rooted);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

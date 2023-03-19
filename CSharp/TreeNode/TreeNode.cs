@@ -77,7 +77,7 @@ namespace PhyloTree
         /// </summary>
         /// <param name="s1">The first <see cref="Split"/> to compare.</param>
         /// <param name="s2">The second <see cref="Split"/> to compare.</param>
-        /// <returns><c>true</c> if the two <see cref="Split"/>s are compatible with each other, <c>false</c> if the are not.</returns>
+        /// <returns><c>true</c> if the two <see cref="Split"/>s are compatible with each other, <c>false</c> if they are not.</returns>
         public static bool AreCompatible(Split s1, Split s2)
         {
             if (!s1.Name.Contains("|", StringComparison.OrdinalIgnoreCase) && !s2.Name.Contains("|", StringComparison.OrdinalIgnoreCase))
@@ -281,7 +281,7 @@ namespace PhyloTree
 
                         nodes.Add(parent);
                     }
-                    else
+                    else if (currChildren.Count > 0)
                     {
                         currChildren[0].Support = Math.Min(currChildren[0].Support, allSplits[i].Support);
 
