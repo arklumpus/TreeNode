@@ -443,7 +443,7 @@ namespace PhyloTree.Formats
                 {
                     if (attributeValue.Length > 0)
                     {
-                        string name = attributeName.ToString();
+                        string name = attributeName.ToString().Trim();
 
                         if (name.StartsWith("&", StringComparison.OrdinalIgnoreCase))
                         {
@@ -457,7 +457,7 @@ namespace PhyloTree.Formats
 
                         if (name.Equals("Name", StringComparison.OrdinalIgnoreCase))
                         {
-                            string value = attributeValue.ToString();
+                            string value = attributeValue.ToString().Trim();
 
                             if ((value.StartsWith("\"", StringComparison.OrdinalIgnoreCase) && value.EndsWith("\"", StringComparison.OrdinalIgnoreCase)) || (value.StartsWith("'", StringComparison.OrdinalIgnoreCase) && value.EndsWith("'", StringComparison.OrdinalIgnoreCase)))
                             {
@@ -469,16 +469,16 @@ namespace PhyloTree.Formats
                         else if (name.Equals("Support", StringComparison.OrdinalIgnoreCase))
                         {
                             supportCount = Math.Max(supportCount, 1);
-                            node.Support = double.Parse(attributeValue.ToString(), CultureInfo.InvariantCulture);
+                            node.Support = double.Parse(attributeValue.ToString().Trim(), CultureInfo.InvariantCulture);
                         }
                         else if (name.Equals("Length", StringComparison.OrdinalIgnoreCase))
                         {
                             lengthCount = Math.Max(lengthCount, 1);
-                            node.Length = double.Parse(attributeValue.ToString(), CultureInfo.InvariantCulture);
+                            node.Length = double.Parse(attributeValue.ToString().Trim(), CultureInfo.InvariantCulture);
                         }
                         else
                         {
-                            string value = attributeValue.ToString();
+                            string value = attributeValue.ToString().Trim();
                             if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
                             {
                                 node.Attributes.Add(name, result);
@@ -498,7 +498,7 @@ namespace PhyloTree.Formats
                         switch (lastSeparator)
                         {
                             case ':':
-                                if (double.TryParse(attributeName.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+                                if (double.TryParse(attributeName.ToString().Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
                                 {
                                     if (lengthCount == 0)
                                     {
@@ -529,11 +529,11 @@ namespace PhyloTree.Formats
                                         name = newName;
                                     }
 
-                                    node.Attributes.Add(name, attributeName.ToString());
+                                    node.Attributes.Add(name, attributeName.ToString().Trim());
                                 }
                                 break;
                             case '/':
-                                if (double.TryParse(attributeName.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double result2))
+                                if (double.TryParse(attributeName.ToString().Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double result2))
                                 {
                                     if (supportCount == 0)
                                     {
@@ -564,13 +564,13 @@ namespace PhyloTree.Formats
                                         name = newName;
                                     }
 
-                                    node.Attributes.Add(name, attributeName.ToString());
+                                    node.Attributes.Add(name, attributeName.ToString().Trim());
                                 }
                                 break;
                             case ',':
                                 bool isName = false;
 
-                                string value = attributeName.ToString();
+                                string value = attributeName.ToString().Trim();
 
                                 if ((value.StartsWith("\"", StringComparison.OrdinalIgnoreCase) && value.EndsWith("\"", StringComparison.OrdinalIgnoreCase)) || (value.StartsWith("'", StringComparison.OrdinalIgnoreCase) && value.EndsWith("'", StringComparison.OrdinalIgnoreCase)))
                                 {

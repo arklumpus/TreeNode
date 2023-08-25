@@ -303,11 +303,11 @@ namespace PhyloTree.Extensions
 
             if (count > 0)
             {
-                progressAction(1);
+                progressAction?.Invoke(1);
             }
             else
             {
-                progressAction(totalTrees);
+                progressAction?.Invoke(totalTrees);
             }
 
             if (finalSplits.Count > 0)
@@ -351,7 +351,7 @@ namespace PhyloTree.Extensions
                 escaped = false;
                 if (!openQuotes && !openApostrophe)
                 {
-                    while (Char.IsWhiteSpace(c))
+                    /*while (Char.IsWhiteSpace(c))
                     {
                         i = reader.Read();
 
@@ -363,7 +363,7 @@ namespace PhyloTree.Extensions
                         }
 
                         c = (char)i;
-                    }
+                    }*/
 
                     switch (c)
                     {
@@ -472,7 +472,7 @@ namespace PhyloTree.Extensions
         /// </summary>
         /// <param name="reader">The <see cref="TextReader"/> to read from.</param>
         /// <param name="eof">A <see cref="bool"/> indicating whether we have arrived at the end of the file.</param>
-        /// <param name="headingTrivia">A string containing any whitespace that was discarding before the start of the word.</param>
+        /// <param name="headingTrivia">A string containing any whitespace that was discarded before the start of the word.</param>
         /// <returns>The next word.</returns>
         public static string NextWord(this TextReader reader, out bool eof, out string headingTrivia)
         {
