@@ -2,6 +2,10 @@
 
 <img src="Logo.svg" width="256" align="right">
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Version](https://img.shields.io/nuget/v/TreeNode)](https://nuget.org/packages/TreeNode)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8387417.svg)](https://doi.org/10.5281/zenodo.8387416)
+
 __TreeNode__ is a library for reading, writing and manipulating phylogenetic trees in C# and R. It can open and create files in the most common phylogenetic formats (i.e. Newick/New Hampshire and NEXUS) and adds support for two new formats, the Newick-with-Attributes and Binary format. The C# library also supports the [NCBI ASN.1](https://www.ncbi.nlm.nih.gov/tools/treeviewer/biotreecontainer/) format (text and binary).
 
 The __Newick-with-Attributes (NWKA) format__ is an extension of the Newick format which makes it possible to specify any number of arbitrary attributes to associate to each node in the tree. The NWKA format is backwards compatible with the Newick format (all Newick trees are valid NWKA trees, and NWKA trees produced by TreeNode are valid Newick trees). A full description of this format is available [in this repository](NWKA.md).
