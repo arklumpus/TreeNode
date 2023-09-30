@@ -441,7 +441,7 @@ namespace PhyloTree.Formats
                 }
                 else if ((eof || ((c2 == ':' || c2 == '/' || c2 == ',') && openSquareCount == 0 && openCurlyCount == 0)) && !escaped && !openQuotes && !openApostrophe)
                 {
-                    if (attributeValue.Length > 0)
+                    if (attributeValue.Length > 0 && !string.IsNullOrWhiteSpace(attributeValue.ToString()))
                     {
                         string name = attributeName.ToString().Trim();
 
@@ -493,7 +493,7 @@ namespace PhyloTree.Formats
                             }
                         }
                     }
-                    else if (attributeName.Length > 0)
+                    else if (attributeName.Length > 0 && !string.IsNullOrWhiteSpace(attributeName.ToString()))
                     {
                         switch (lastSeparator)
                         {
