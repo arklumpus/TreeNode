@@ -1,13 +1,10 @@
-﻿using PhyloTree.Extensions;
-using PhyloTree.Formats;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,6 +32,29 @@ namespace PhyloTree
         /// <returns>The Robinson-Foulds distance between <paramref name="tree1"/> and <paramref name="tree2"/>.</returns>
         public static double RobinsonFouldsDistance(TreeNode tree1, TreeNode tree2, bool weighted)
         {
+            return RobinsonFouldsDistance(tree1, tree2, weighted ? node => node.Length : (Func<TreeNode, double>)null);
+        }
+
+        /// <summary>
+        /// Computes the Robinson-Foulds distance between the current tree and another tree, using a custom weighting function.
+        /// </summary>
+        /// <param name="otherTree">The other tree whose distance to the current tree is computed.</param>
+        /// <param name="weightingFunction">Custom weighting function, which should return the weight associated to each split. If this is null, the unweighted Robinson-Foulds distance is returned.</param>
+        /// <returns>The Robinson-Foulds distance between this tree and the <paramref name="otherTree"/>.</returns>
+        public double RobinsonFouldsDistance(TreeNode otherTree, Func<TreeNode, double> weightingFunction = null)
+        {
+            return RobinsonFouldsDistance(this, otherTree, weightingFunction);
+        }
+
+        /// <summary>
+        /// Computes the Robinson-Foulds distance between two trees, using a custom weighting function.
+        /// </summary>
+        /// <param name="tree1">The first tree.</param>
+        /// <param name="tree2">The second tree.</param>
+        /// <param name="weightingFunction">Custom weighting function, which should return the weight associated to each split. If this is null, the unweighted Robinson-Foulds distance is returned.</param>
+        /// <returns>The Robinson-Foulds distance between <paramref name="tree1"/> and <paramref name="tree2"/>.</returns>
+        public static double RobinsonFouldsDistance(TreeNode tree1, TreeNode tree2, Func<TreeNode, double> weightingFunction = null)
+        {
             if (tree1 == null)
             {
                 throw new ArgumentNullException(nameof(tree1), "The first tree cannot be null!");
@@ -47,13 +67,13 @@ namespace PhyloTree
 
             double[,] distMat = new double[2, 2];
 
-            if (weighted)
+            if (weightingFunction != null)
             {
-                FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, wRFDistances: distMat, maxThreadCount: 1);
+                FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, weightingFunction, wRFDistances: distMat, maxThreadCount: 1);
             }
             else
             {
-                FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, RFDistances: distMat, maxThreadCount: 1);
+                FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, node => node.Length, RFDistances: distMat, maxThreadCount: 1);
             }
 
             return distMat[0, 1];
@@ -89,7 +109,7 @@ namespace PhyloTree
 
             double[,] distMat = new double[2, 2];
 
-            FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, ELDistances: distMat, maxThreadCount: 1);
+            FillDistanceMatrix(new TreeNode[] { tree1, tree2 }, node => node.Length, ELDistances: distMat, maxThreadCount: 1);
             return distMat[0, 1];
         }
 
@@ -124,11 +144,36 @@ namespace PhyloTree
 
             if (weighted)
             {
-                FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, wRFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+                FillDistanceMatrix(trees, node => node.Length, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, wRFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
             }
             else
             {
-                FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+                FillDistanceMatrix(trees, node => node.Length, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+            }
+
+            return distMat;
+        }
+
+        /// <summary>
+        /// Computes a distance matrix containing the Robinson-Foulds distances between each pair of trees in a list, using a custom weighting function.
+        /// </summary>
+        /// <param name="trees">The list of trees that should be compared.</param>
+        /// <param name="weightingFunction">Custom weighting function, which should return the weight associated to each split. If this is null, the unweighted Robinson-Foulds distance is returned.</param>
+        /// <param name="pruningMode">If this is <see cref="TreeComparisonPruningMode.Global"/>, all trees are pruned so that they only contain the subset of leaves that are present in all trees. If this is <see cref="TreeComparisonPruningMode.Pairwise"/>, during each comparisons the two trees are pruned so that they contain the subset of leaves that are in common between both of them.</param>
+        /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
+        /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
+        /// <returns>A square <see langword="double"/>[,] matrix containing the requested distances between the trees.</returns>
+        public static double[,] RobinsonFouldsDistances(IReadOnlyList<TreeNode> trees, Func<TreeNode, double> weightingFunction = null, TreeComparisonPruningMode pruningMode = TreeComparisonPruningMode.Pairwise, int maxThreadCount = -1, IProgress<double> progress = null)
+        {
+            double[,] distMat = new double[trees.Count, trees.Count];
+
+            if (weightingFunction != null)
+            {
+                FillDistanceMatrix(trees, weightingFunction, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, wRFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+            }
+            else
+            {
+                FillDistanceMatrix(trees, node => node.Length, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
             }
 
             return distMat;
@@ -146,7 +191,7 @@ namespace PhyloTree
         {
             double[,] distMat = new double[trees.Count, trees.Count];
 
-            FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, ELDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
+            FillDistanceMatrix(trees, node => node.Length, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, ELDistances: distMat, maxThreadCount: maxThreadCount, progress: progress);
 
             return distMat;
         }
@@ -166,7 +211,26 @@ namespace PhyloTree
             RFDistances = new double[trees.Count, trees.Count];
             weightedRFDistances = new double[trees.Count, trees.Count];
 
-            FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, maxThreadCount: maxThreadCount, progress: progress);
+            FillDistanceMatrix(trees, node => node.Length, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, maxThreadCount: maxThreadCount, progress: progress);
+        }
+
+        /// <summary>
+        /// Computes two distance matrices containing the unweighted and weighted Robinson-Foulds distances between each pair of trees in a list. Much faster than computing the two distance matrices separately.
+        /// </summary>
+        /// <param name="trees">The list of trees that should be compared.</param>
+        /// <param name="weightingFunction">Custom weighting function, which should return the weight associated to each split. If this is null, the unweighted Robinson-Foulds distance is returned.</param>
+        /// <param name="RFDistances">When this method returns, this variable will contain the computed Robinson-Foulds distances between the trees.</param>
+        /// <param name="weightedRFDistances">When this method returns, this variable will contain the computed weighted Robinson-Foulds distances between the trees.</param>
+        /// <param name="pruningMode">If this is <see cref="TreeComparisonPruningMode.Global"/>, all trees are pruned so that they only contain the subset of leaves that are present in all trees. If this is <see cref="TreeComparisonPruningMode.Pairwise"/>, during each comparisons the two trees are pruned so that they contain the subset of leaves that are in common between both of them.</param>
+        /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
+        /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
+        /// <returns>A square <see langword="double"/>[,] matrix containing the requested distances between the trees.</returns>
+        public static void RobinsonFouldsDistances(IReadOnlyList<TreeNode> trees, Func<TreeNode, double> weightingFunction, out double[,] RFDistances, out double[,] weightedRFDistances, TreeComparisonPruningMode pruningMode = TreeComparisonPruningMode.Pairwise, int maxThreadCount = -1, IProgress<double> progress = null)
+        {
+            RFDistances = new double[trees.Count, trees.Count];
+            weightedRFDistances = new double[trees.Count, trees.Count];
+
+            FillDistanceMatrix(trees, weightingFunction, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, maxThreadCount: maxThreadCount, progress: progress);
         }
 
         /// <summary>
@@ -186,14 +250,14 @@ namespace PhyloTree
             weightedRFDistances = new double[trees.Count, trees.Count];
             ELDistances = new double[trees.Count, trees.Count];
 
-            FillDistanceMatrix(trees, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, ELDistances: ELDistances, maxThreadCount: maxThreadCount, progress: progress);
+            FillDistanceMatrix(trees, node => node.Length, comparePairwise: pruningMode == TreeComparisonPruningMode.Pairwise, RFDistances: RFDistances, wRFDistances: weightedRFDistances, ELDistances: ELDistances, maxThreadCount: maxThreadCount, progress: progress);
         }
-
 
         /// <summary>
         /// Fills distance matrices with the Robinson-Foulds and weighted Robinson-Foulds distances between the trees.
         /// </summary>
         /// <param name="trees">The trees to be compared.</param>
+        /// <param name="weightingFunction">The weighting function that determines the weight for each split.</param>
         /// <param name="comparePairwise">If this is <see langword="false"/>, only leaves that are in common to all trees are used. If this is <see langword="true" />, for each pair of trees, the leaves that are in common between them are used.</param>
         /// <param name="RFDistances">The matrix to be filled with Robinson-Foulds distances, or <see langword="null"/>.</param>
         /// <param name="wRFDistances">The matrix to be filled with weighted Robinson-Foulds distances, or <see langword="null"/>.</param>
@@ -201,7 +265,7 @@ namespace PhyloTree
         /// <param name="maxThreadCount">The maximum number of threads to use for parallelised steps.</param>
         /// <param name="progress">An <see cref="IProgress{T}"/> for progress reporting.</param>
         /// <exception cref="ArgumentException">Thrown if at least one of the trees has a tip without a name.</exception>
-        private static void FillDistanceMatrix(IReadOnlyList<TreeNode> trees, bool comparePairwise = true, double[,] RFDistances = null, double[,] wRFDistances = null, double[,] ELDistances = null, int maxThreadCount = -1, IProgress<double> progress = null)
+        private static void FillDistanceMatrix(IReadOnlyList<TreeNode> trees, Func<TreeNode, double> weightingFunction, bool comparePairwise = true, double[,] RFDistances = null, double[,] wRFDistances = null, double[,] ELDistances = null, int maxThreadCount = -1, IProgress<double> progress = null)
         {
             if (maxThreadCount <= 0)
             {
@@ -237,7 +301,7 @@ namespace PhyloTree
                     else
                     {
                         splitCount++;
-                        splitLengths[i].Add(node.Length);
+                        splitLengths[i].Add(weightingFunction(node));
                     }
                 }
                 splitCounts.Add(splitCount);
@@ -312,7 +376,7 @@ namespace PhyloTree
 
                                 currMask[byteIndex] |= (byte)(0b1 << bitIndex);
 
-                                leafLengths[i][index] = node.Length;
+                                leafLengths[i][index] = weightingFunction(node);
                             }
                         }
 
